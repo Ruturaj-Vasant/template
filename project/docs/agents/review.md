@@ -31,9 +31,8 @@ Before the first review step, run this from the feature branch:
 git fetch origin main:main main:refs/remotes/origin/main && git remote set-head origin --auto
 ```
 
-It brings local `main`, `origin/main`, and `origin/HEAD` up to date, which every review command below depends on.
-A fresh or single-branch clone, common in remote sessions, has none of them, and the reviews would otherwise fail or compare against a stale `main`.
-It refuses to run while `main` itself is checked out, which is fine because reviews run on feature branches.
+It updates local `main`, `origin/main`, and `origin/HEAD`, which the reviews depend on and which fresh or single-branch clones (common in remote sessions) lack.
+It refuses to run while `main` is checked out, so run it from the feature branch.
 
 - Always give Claude's `/code-review` a target such as `main...HEAD` or a PR number. Without one it only sees unpushed and uncommitted work, and finds nothing once a branch is pushed.
 - Claude's `/security-review` compares the branch with `origin/HEAD`, which the command above sets.
@@ -65,7 +64,7 @@ Every skipped finding or step needs a reason.
 Reviewers asked to find gaps usually find some, even when the work is sound.
 Fix findings that affect correctness, security, or the stated requirements.
 Treat style preferences and speculative hardening as optional.
-Never accept a cleanup that removes an audit trail, units, an approval step, input validation, error handling, or accessibility to make code shorter.
+Never accept a cleanup that breaks a project principle in `AGENTS.md`, or removes input validation, error handling, or accessibility, to make code shorter.
 Record anything you chose not to fix, with the reason.
 
 ## Reviewing someone else's change

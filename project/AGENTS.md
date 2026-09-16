@@ -21,7 +21,7 @@ Never read the whole folder: search the headers, then open only the files that m
 
 ```bash
 rg --sort path "^decision:" docs/decisions/D-*          # one-line index of every decision
-rg -l "^touches:.*<path or folder>" docs/decisions/D-*  # decisions about what you are changing
+rg -l "^touches:.*<path or folder>" docs/decisions/D-*  # decisions about what you are changing; also search its parent folders
 ```
 
 A decision named in another decision's `supersedes:` is no longer current.
@@ -43,26 +43,20 @@ Until then, follow the project principles below and point out the missing guide 
 ## Claude Code and Codex
 
 Both tools read this file and the same guides in `docs/agents/`.
-Claude Code loads path-scoped guides through symlinks in `.claude/rules/`; Codex loads them through pointer skills in `.agents/skills/`.
-Edit the guide in `docs/agents/`, never a link or pointer, and give every new path-scoped guide both.
-Review commands for each tool are in `docs/agents/review.md`.
-
-## Graphify
-
-- Graphify is code-only. Never run semantic (LLM-backed) extraction, community labeling, a full rebuild, or `graphify claude install` unless the user explicitly asks.
-- The graph is for navigation, not authority. Current source and passing tests win when it is stale or disagrees.
-- `docs/agents/graphify.md` has the build and query commands.
+A path-scoped guide lives in `docs/agents/` and needs a symlink in `.claude/rules/` (Claude Code) and a pointer skill in `.agents/skills/` (Codex). Edit only the guide.
 
 ## While you work
 
 - Non-trivial changes go on a new branch, never directly on `main`. Changes reach `main` only through a pull request.
 - Keep the change inside the requested scope. Do not redesign unrelated areas.
+- Never credit an AI tool as an author or contributor: no `Co-Authored-By` trailers, "Generated with" lines, or similar attribution for Claude, Codex, or any other agent in commits, pull requests, code, or documentation.
 - Never commit secrets, credentials, tokens, `.env` files, real user data, or other private data. Fixtures and examples use synthetic data only.
 - Prefer a visible `unknown`, `incomplete`, or `unavailable` over a guessed value. Never silently swallow a failure.
 - When code exists because of a decision, cite the ID in a comment next to it (`// D-014: audit rows are append-only`).
 - Match the surrounding code's idiom, naming, and comment density.
 - Write prose one sentence per line, so a search match returns a complete sentence. State each rule in one place and link to it from elsewhere.
 - `docs/SYSTEMS.md` records what exists and `docs/decisions/` records why; neither repeats the other.
+- Graphify is code-only and advisory: never run semantic (LLM-backed) extraction, community labeling, a full rebuild, or `graphify claude install` unless the user explicitly asks, and trust current source over a stale graph.
 
 ## Project principles
 
@@ -73,13 +67,12 @@ TODO(template): Three to six rules that come from the project's domain and must 
 ## Definition of done
 
 TODO(template): The single command that must pass (build, lint, and tests), e.g. `npm run check`. If there is no toolchain yet, say so, and say to verify as the matching task guide describes and report exactly what was checked.
-For documentation-only changes, run the header checks in `docs/decisions/README.md`.
 
 For every non-trivial change:
 
 1. Verify and report the results, including anything you could not check.
 2. Update `docs/SYSTEMS.md` when what exists changes.
-3. Record meaningful decisions as described in `docs/decisions/README.md`, and run its header checks after adding a decision or moving or renaming files.
+3. Record meaningful decisions as described in `docs/decisions/README.md`, and run its header checks after changing `docs/decisions/` or moving or renaming files.
 4. If `graphify-out/graph.json` exists and code changed, run `graphify update .`.
 5. Confirm `git status` shows only intended changes.
 6. Report anything uncertain, untested, or intentionally out of scope.

@@ -23,7 +23,6 @@ To find the next decision number, list the files: `ls docs/decisions/D-*`.
 `touches:` often names a folder rather than a file, so search a path together with its parent folders, as in the table.
 
 A decision named in another decision's `supersedes:` is no longer current, whatever its own `status:` says.
-Check the replaced list before relying on a decision.
 
 ## Writing a decision
 
@@ -78,7 +77,7 @@ To add a tag, add it here in the same change that first uses it.
 | `backend` | APIs, services, background jobs |
 | `data-integrity` | Records, versioning, audit trail, units |
 | `security` | Authentication, permissions, secrets, data exposure |
-| `ai` | AI features, experiment design assistance, model use |
+| `ai` | AI features, prompts, model use |
 | `testing` | Test strategy and fixtures |
 | `deployment` | Hosting, environments, release pipelines |
 | `domain` | Concepts specific to this project's field. TODO(template): Replace with one or more domain tags, or delete the row |

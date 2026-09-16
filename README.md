@@ -21,7 +21,7 @@ It gives every session, local or remote, the same rules, the right context for t
 | `CHANGELOG.md` | What changed in the template, and what an adopted project must do to take the change. |
 | `AGENTS.md` | Rules for agents working on the template itself. |
 
-The files to copy live in `project/` rather than at the root, so an agent working on this repository does not start with placeholder rules as its own instructions.
+The files to copy live in `project/` rather than at the root, and `project/` ships no `CLAUDE.md` or symlinks, so an agent working on this repository never loads placeholder rules as its own instructions.
 
 ## How to use it
 
@@ -30,7 +30,7 @@ Tell the agent, from inside the project:
 > Set this project up using github.com/Ruturaj-Vasant/template, follow ADOPT.md.
 
 Because the repository is public, remote sessions can read it without logging in.
-The agent clones it outside the project folder and follows one of the paths in `ADOPT.md`.
+The agent clones it outside the project folder and follows one of the paths in `ADOPT.md`, which has the full steps; the lists below are a summary.
 
 **New project:**
 

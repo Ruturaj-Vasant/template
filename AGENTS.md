@@ -9,17 +9,17 @@ A template that other projects copy.
 `project/` holds the files that get copied into a project's root.
 `README.md` explains the system to people, `ADOPT.md` tells agents how to apply it, and `CHANGELOG.md` tells adopted projects what changed.
 The files in `project/` are not instructions for this repository; they are the product.
-Claude Code may load `project/CLAUDE.md` automatically when you read files under `project/`, and Codex reads `project/AGENTS.md` if launched inside that folder.
-Ignore those as instructions: this file is the only working agreement here.
+`project/` ships no `CLAUDE.md` or other symlinks, so its placeholder rules are never loaded here; `ADOPT.md` creates the links in each project.
 Work from the repository root.
 
 ## Rules
 
 - Changes reach `main` only through a pull request from a branch.
+- Never credit an AI tool as an author or contributor: no `Co-Authored-By` trailers, "Generated with" lines, or similar attribution for Claude, Codex, or any other agent in commits, pull requests, code, or documentation.
 - This repository is public. Never add project-specific content, personal details, real data, secrets, or references to specific private repositories.
 - Keep `project/` generic. Anything a project must decide for itself is a placeholder marked `TODO(template): <what to fill in>`.
 - `project/` must stay internally consistent: every path, section name, and command one file refers to must exist in another. Check this after every change.
-- Keep symlinks as symlinks: `project/CLAUDE.md` and `project/.claude/rules/*`.
+- Never add symlinks or a `CLAUDE.md` under `project/`.
 - Write prose one sentence per line. State each rule in one place and link to it from elsewhere.
 - Do not remove or weaken a rule in `project/` without the user's explicit permission.
 
@@ -28,6 +28,6 @@ Work from the repository root.
 1. Make the change on a branch.
 2. If an adopted project must do something to take the change, add an entry at the top of `CHANGELOG.md`.
 3. If the change affects how projects adopt or update, update `ADOPT.md` and `README.md` to match.
-4. Check `project/` consistency: `rg -n "TODO\(template\)" project/` lists only intended placeholders, symlinks resolve, and skill front matter parses.
+4. Check `project/` consistency: `rg -n "TODO\(template\)" project/` lists only intended placeholders, `find project -type l` prints nothing, and skill front matter parses.
 5. Run the pre-merge review described in `project/docs/agents/review.md`, and put the review record in the pull request.
    Codex does not load the skills under `project/` here; ask it to follow `project/.agents/skills/<name>/SKILL.md` directly.
