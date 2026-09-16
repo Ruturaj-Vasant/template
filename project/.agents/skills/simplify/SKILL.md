@@ -11,7 +11,7 @@ Review it, fix what you find, and report what you changed.
 ## Scope
 
 1. Run the setup command from "Getting the scope right" in `docs/agents/review.md`, so `main` exists and is current.
-2. Run `git diff main...HEAD` and `git diff HEAD` to collect committed and uncommitted changes on this branch.
+2. Run `git diff main...HEAD` and `git diff HEAD` to collect committed and uncommitted changes on this branch. Use `origin/main` instead of `main` if you used the worktree fallback in that section.
 3. If a git command fails, stop and report the error. Never report "nothing to simplify" after a failed command.
 4. If both diffs are empty, stop and say there is nothing to simplify.
 5. Only change code inside that diff, plus the smallest edits needed elsewhere to reuse something that already exists.

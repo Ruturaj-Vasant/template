@@ -33,6 +33,7 @@ git fetch origin main:main main:refs/remotes/origin/main && git remote set-head 
 
 It updates local `main`, `origin/main`, and `origin/HEAD`, which the reviews depend on and which fresh or single-branch clones (common in remote sessions) lack.
 It refuses to run while `main` is checked out, so run it from the feature branch.
+If `main` is checked out in another worktree, it fails for the same reason: run `git fetch origin main:refs/remotes/origin/main && git remote set-head origin main` instead, and use `origin/main` wherever the review commands say `main`.
 
 - Always give Claude's `/code-review` a target such as `main...HEAD` or a PR number. Without one it only sees unpushed and uncommitted work, and finds nothing once a branch is pushed.
 - Claude's `/security-review` compares the branch with `origin/HEAD`, which the command above sets.

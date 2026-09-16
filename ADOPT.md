@@ -18,10 +18,11 @@ Everything under `project/` maps to the same path at the project root: `project/
 
 Use this when the project has no agent instructions yet (no `AGENTS.md`, `CLAUDE.md`, or similar rule files).
 
-1. Copy the contents of `project/` into the project's root: `cp -R <tmp>/template/project/. <project>/`.
-2. Do "Setting up the copied files".
-3. Write `docs/decisions/D-001-agent-setup-from-template.md` as described in "The adoption decision". Its Decision section also states the project's principles and what is not decided yet.
-4. Do "Finishing every path".
+1. Check that copying overwrites nothing: `(cd <tmp>/template/project && find . -type f) | while read -r f; do [ -e "<project>/$f" ] && echo "exists: $f"; done` must print nothing. If it prints anything, follow Path 2 instead.
+2. Copy the contents of `project/` into the project's root: `cp -R <tmp>/template/project/. <project>/`.
+3. Do "Setting up the copied files".
+4. Write `docs/decisions/D-001-agent-setup-from-template.md` as described in "The adoption decision". Its Decision section also states the project's principles and what is not decided yet.
+5. Do "Finishing every path".
 
 ## Path 2: existing project
 
@@ -65,7 +66,7 @@ Do these in order, so no placeholder is filled in a file that is then deleted.
 2. **Example guide.** Rename `docs/agents/example-guide.md` and `.agents/skills/example-guide/` to a real guide (for example `frontend`), including the `name:` in the skill, and link it as above. If the project has no path-scoped guide yet, delete both and the first row of the task guides table.
 3. **Graphify.** If the project does not use Graphify, delete `docs/agents/graphify.md`, its row in the task guides table, and the Graphify bullet in `AGENTS.md`.
 4. **Default branch.** If it is not `main`, find every mention with `rg -n "\bmain\b" AGENTS.md docs .agents .github` and replace them.
-5. **Placeholders.** Fill every placeholder that `rg -n "TODO\(template\)"` lists, until it prints nothing. Never invent facts to fill one: ask the user, or record what is unknown in `docs/SYSTEMS.md` under "Not yet decided".
+5. **Placeholders.** Fill every placeholder that `rg -n --hidden "TODO\(template\)"` lists, until it prints nothing. Never invent facts to fill one: ask the user, or record what is unknown in `docs/SYSTEMS.md` under "Not yet decided".
 6. **Deployment.** If the repository is served as static files (for example without a build step), exclude `AGENTS.md`, `CLAUDE.md`, `docs`, `.claude`, `.agents`, and `.github` from what is served.
 7. **Check links.** `find . -path ./.git -prune -o -type l ! -exec test -e {} \; -print` prints nothing.
 
