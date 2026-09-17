@@ -74,7 +74,7 @@ Do these in order, so no placeholder is filled in a file that is then deleted.
 
 1. Run the header checks in `docs/decisions/README.md`.
 2. Commit and push the branch, then run `git remote set-head origin --auto`, so `/security-review` works even when run on its own.
-3. Run the pre-merge review in `docs/agents/review.md`.
+3. Run the pre-merge review in `docs/agents/review.md`, unless the adoption changed only documentation (see "Documentation-only changes" there).
 4. Open a pull request with the review record.
 5. Report: the path followed and the template commit used; placeholders filled and anything left unknown; existing rules moved and where; verification and header check results; anything you were unsure about.
 

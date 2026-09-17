@@ -70,7 +70,7 @@ TODO(template): The single command that must pass (build, lint, and tests), e.g.
 
 For every non-trivial change:
 
-1. Verify and report the results, including anything you could not check.
+1. When code changed, verify and report the results, including anything you could not check; documentation-only changes skip verification, as `docs/agents/review.md` describes.
 2. Update `docs/SYSTEMS.md` when what exists changes.
 3. Record meaningful decisions as described in `docs/decisions/README.md`, and run its header checks after changing `docs/decisions/` or moving or renaming files.
 4. If `graphify-out/graph.json` exists and code changed, run `graphify update .`.
@@ -78,4 +78,4 @@ For every non-trivial change:
 6. Report anything uncertain, untested, or intentionally out of scope.
 
 **Before merging into `main`:** run the pre-merge review in `docs/agents/review.md` (simplify, then code review, then security review) and put the review record in the pull request description.
-No branch merges without it.
+No branch that changes code merges without it; a documentation-only branch records the skip instead.

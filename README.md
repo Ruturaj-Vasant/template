@@ -9,7 +9,7 @@ It gives every session, local or remote, the same rules, the right context for t
 - **Task guides.** Detailed rules live in `docs/agents/` and are read only when the task needs them. Path-scoped guides load automatically: through `.claude/rules/` symlinks in Claude Code and pointer skills in `.agents/skills/` in Codex.
 - **Current state.** `docs/SYSTEMS.md` records what exists now.
 - **Decisions.** `docs/decisions/` holds one file per decision, with a one-line header that agents search instead of reading every file.
-- **Pre-merge review.** Every branch gets simplify, then code review, then security review before it merges into `main`, and the results go in the pull request.
+- **Pre-merge review.** Every branch that changes code gets simplify, then code review, then security review before it merges into `main`, and the results go in the pull request; documentation-only branches skip the review and the verification command.
 - **Code graph (optional).** Graphify in code-only mode for architecture and change-impact questions.
 
 ## What is in this repository
@@ -45,7 +45,7 @@ The agent clones it outside the project folder and follows one of the paths in `
 2. Keep every existing rule, moving each one to where it belongs, and never overwrite.
 3. Turn old decision notes into decision files.
 4. List anything it was not sure about.
-5. Run the pre-merge review.
+5. Run the pre-merge review if anything other than documentation changed.
 
 Either way, the project records which template commit it adopted in a decision.
 

@@ -8,7 +8,7 @@
 
 ## Review record
 
-<!-- Required before merging into main. See docs/agents/review.md. -->
+<!-- Required before merging into main. See docs/agents/review.md. A documentation-only branch writes "Skipped: documentation only" instead. -->
 
 | Step | Tool | Findings | Fixed | Skipped, with reason |
 |---|---|---|---|---|

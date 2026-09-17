@@ -29,5 +29,5 @@ Work from the repository root.
 2. If an adopted project must do something to take the change, add an entry at the top of `CHANGELOG.md`.
 3. If the change affects how projects adopt or update, update `ADOPT.md` and `README.md` to match.
 4. Check `project/` consistency: `rg -n --hidden "TODO\(template\)" project/` lists only intended placeholders, `find project -type l` prints nothing, and skill front matter parses.
-5. Run the pre-merge review described in `project/docs/agents/review.md`, and put the review record in the pull request.
+5. Run the pre-merge review described in `project/docs/agents/review.md`, and put the review record in the pull request, unless the change is documentation only as defined there.
    Codex does not load the skills under `project/` here; ask it to follow `project/.agents/skills/<name>/SKILL.md` directly.

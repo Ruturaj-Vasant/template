@@ -2,9 +2,17 @@
 
 Read this when a feature is finished, before anything merges into `main`, or when asked to review code.
 
+## Documentation-only changes
+
+A branch that changes nothing but documentation skips the verification command in `AGENTS.md` and all three reviews below, because Markdown gives them nothing to build, run, or exploit.
+Documentation means Markdown files (`*.md`, including `AGENTS.md`, guides, decisions, skills, and the pull request template) and symlinks to them.
+Anything else is code for this rule, including configuration, scripts, prompts, and data files.
+The pull request's review record says "Skipped: documentation only", and the scope check at the end of this guide still applies.
+If a branch that started as documentation gains any other file, the full review applies again.
+
 ## Pre-merge review
 
-Every branch gets three reviews before it merges into `main`.
+Every branch that changes code gets three reviews before it merges into `main`.
 Commit your work first, so every tool reviews the same changes.
 Run the reviews in this order:
 
@@ -19,9 +27,8 @@ Run the reviews in this order:
 | 3. Security review: reports vulnerabilities | `/security-review`, then the project checks below | `$security-review` (includes the project checks) |
 
 After each step, fix what it found and commit.
-Verify again whenever a step changed files, and once more at the end.
+Verify again whenever a step changed code, and once more at the end if the tree changed since the last passing run.
 If fixes were substantial, run the code review again on the result.
-Security review may be skipped only when the branch changes nothing but Markdown files; say so in the review record.
 
 ## Getting the scope right
 
@@ -50,7 +57,7 @@ TODO(template): Three to six checks specific to this project, each as a bold nam
 ## Review record
 
 Every pull request into `main` includes the review record table from `.github/pull_request_template.md`.
-Every skipped finding or step needs a reason.
+Every skipped finding or step needs a reason; for a documentation-only branch, one row saying "Skipped: documentation only" is enough.
 
 ## Scope check
 
