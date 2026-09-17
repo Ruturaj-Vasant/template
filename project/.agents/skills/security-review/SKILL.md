@@ -1,6 +1,6 @@
 ---
 name: security-review
-description: Read-only security review of the changes on the current branch, reporting only high-confidence, exploitable vulnerabilities. Use as step 3 of the pre-merge review, or when asked for a security review.
+description: Read-only security review of the changes on the current branch, reporting only high-confidence, exploitable vulnerabilities. Use in the pre-merge review when docs/agents/review.md calls for it, or when asked for a security review.
 ---
 
 # Security review
@@ -18,7 +18,7 @@ This is not a general code review.
 ## Scope
 
 1. Run the setup command from "Getting the scope right" in `docs/agents/review.md`, so `main` exists and is current.
-2. Run `git log --oneline main..HEAD`, `git diff main...HEAD`, and `git diff HEAD`. Use `origin/main` instead of `main` if you used the worktree fallback in that section.
+2. Run `git log --oneline main..HEAD`, `git diff main...HEAD -- . ':(exclude)*.md'`, and `git diff HEAD -- . ':(exclude)*.md'`, which leave out Markdown files, since they are never reviewed (see `AGENTS.md`). Use `origin/main` instead of `main` if you used the worktree fallback in that section.
 3. If a git command fails, stop and report the error. Never report a clean review after a failed command.
 4. If there are no changes, stop and say there is nothing to review.
 

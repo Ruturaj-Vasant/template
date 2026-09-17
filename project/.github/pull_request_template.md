@@ -8,13 +8,14 @@
 
 ## Review record
 
-<!-- Required before merging into main. See docs/agents/review.md. A documentation-only branch writes "Skipped: documentation only" instead. -->
+<!-- Required before merging into main. docs/agents/review.md chooses the steps for the branch's risk; a step not run says why. A branch that changes only Markdown files writes "Skipped: Markdown only" instead. -->
 
 | Step | Tool | Findings | Fixed | Skipped, with reason |
 |---|---|---|---|---|
-| 1. Simplify | | | | |
-| 2. Code review | | | | |
-| 3. Security review | | | | |
+| Simplify | | | | |
+| Performance | | | | |
+| Code review | | | | |
+| Security review | | | | |
 
 ## Decisions
 

@@ -1,6 +1,6 @@
 ---
 name: simplify
-description: Clean up the code changed on the current branch for reuse, simplicity, efficiency, and placement, then apply the fixes. Use as step 1 of the pre-merge review, or when asked to simplify changes. Does not hunt for bugs; use /review for that.
+description: Clean up the code changed on the current branch for reuse, simplicity, efficiency, and placement, then apply the fixes. Use in the pre-merge review when docs/agents/review.md calls for it, or when asked to simplify changes. Does not hunt for bugs; use /review for that.
 ---
 
 # Simplify
@@ -11,7 +11,7 @@ Review it, fix what you find, and report what you changed.
 ## Scope
 
 1. Run the setup command from "Getting the scope right" in `docs/agents/review.md`, so `main` exists and is current.
-2. Run `git diff main...HEAD` and `git diff HEAD` to collect committed and uncommitted changes on this branch. Use `origin/main` instead of `main` if you used the worktree fallback in that section.
+2. Run `git diff main...HEAD -- . ':(exclude)*.md'` and `git diff HEAD -- . ':(exclude)*.md'` to collect committed and uncommitted changes on this branch, without Markdown files, which are never reviewed (see `AGENTS.md`). Use `origin/main` instead of `main` if you used the worktree fallback in that section.
 3. If a git command fails, stop and report the error. Never report "nothing to simplify" after a failed command.
 4. If both diffs are empty, stop and say there is nothing to simplify.
 5. Only change code inside that diff, plus the smallest edits needed elsewhere to reuse something that already exists.

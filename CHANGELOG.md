@@ -4,6 +4,19 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Markdown files are notes; review steps follow risk; performance step
+
+- `AGENTS.md` states that Markdown files are notes: they are never verified or reviewed, even on a branch that also changes code.
+- `docs/agents/review.md` replaces "Documentation-only changes" with "Markdown files" and a new "Choosing the review steps" section: a bug fix gets code review, a feature gets simplify and code review, and security review and performance are added when the changes touch the areas listed there.
+- The review order is simplify, performance, code review, security review, so code review sees the edits of both steps before it.
+- New `.agents/skills/performance/SKILL.md`: fixes measurable, behavior-preserving performance problems in the diff and proposes larger ones (caches, pagination, index changes) instead of applying them. Claude Code reaches it through a `.claude/skills/performance/SKILL.md` link that `ADOPT.md` creates.
+- `docs/agents/review.md` gains a "Project performance checks" placeholder.
+- The simplify and security-review skills leave Markdown files out of their diffs and no longer call themselves step 1 or step 3.
+- The pull request template's review record gains a Performance row and drops step numbers.
+
+**Adopted projects must:** add the "Markdown files are notes" paragraph and update definition-of-done item 1 and the "Before merging" paragraph in `AGENTS.md`; in `docs/agents/review.md`, replace "Documentation-only changes" and the opening of "Pre-merge review" with the new "Markdown files", "Choosing the review steps", and "Pre-merge review" sections, update the Codex bullet in "Getting the scope right", add "Project performance checks" (filled in, or "None yet"), and update "Review record"; copy `.agents/skills/performance/`, create its `.claude/skills/performance/SKILL.md` link, and update the simplify and security-review skills; and update the review record table in `.github/pull_request_template.md`.
+If the project already names security-sensitive or performance-critical areas elsewhere, list them in the matching project checks section rather than repeating them.
+
 ## Documentation-only branches skip verification and the pre-merge review
 
 - `docs/agents/review.md` gains a "Documentation-only changes" section: a branch that changes nothing but Markdown files and symlinks to them skips the verification command and all three reviews, and records "Skipped: documentation only".

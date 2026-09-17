@@ -39,7 +39,7 @@ The goal is the template's structure with none of the project's existing rules l
 4. If `CLAUDE.md` and `AGENTS.md` both exist with different content, merge them into `AGENTS.md`; "Setting up the copied files" then makes `CLAUDE.md` a link.
 5. Turn old decision notes into decision files with the format in `docs/decisions/README.md`.
    Keep their original dates, and number them in date order. Keep an existing numbering scheme if its IDs are already cited in code.
-6. Copy the template files the project does not have yet, such as the review skills, the pull request template, and the guides.
+6. Copy the template files the project does not have yet, such as the review skills (including `performance`), the pull request template, and the guides.
 7. Do "Setting up the copied files".
 8. Write the adoption decision with the next free number. Its Consequences section lists which existing rules moved and where.
 9. Do "Finishing every path". In the pull request, also list every existing rule and where it went, and anything you were not sure where to put.
@@ -62,7 +62,7 @@ Use this when the project already adopted the template and the user asks to upda
 
 Do these in order, so no placeholder is filled in a file that is then deleted.
 
-1. **Links.** The template ships no symlinks, so create them: `ln -s AGENTS.md CLAUDE.md`, and one link per path-scoped guide: `mkdir -p .claude/rules && ln -s ../../docs/agents/<guide>.md .claude/rules/<guide>.md`.
+1. **Links.** The template ships no symlinks, so create them: `ln -s AGENTS.md CLAUDE.md`; the performance skill for Claude Code: `mkdir -p .claude/skills/performance && ln -s ../../../.agents/skills/performance/SKILL.md .claude/skills/performance/SKILL.md`; and one link per path-scoped guide: `mkdir -p .claude/rules && ln -s ../../docs/agents/<guide>.md .claude/rules/<guide>.md`.
 2. **Example guide.** Rename `docs/agents/example-guide.md` and `.agents/skills/example-guide/` to a real guide (for example `frontend`), including the `name:` in the skill, and link it as above. If the project has no path-scoped guide yet, delete both and the first row of the task guides table.
 3. **Graphify.** If the project does not use Graphify, delete `docs/agents/graphify.md`, its row in the task guides table, and the Graphify bullet in `AGENTS.md`.
 4. **Default branch.** If it is not `main`, find every mention with `rg -n "\bmain\b" AGENTS.md docs .agents .github` and replace them.
@@ -74,7 +74,7 @@ Do these in order, so no placeholder is filled in a file that is then deleted.
 
 1. Run the header checks in `docs/decisions/README.md`.
 2. Commit and push the branch, then run `git remote set-head origin --auto`, so `/security-review` works even when run on its own.
-3. Run the pre-merge review in `docs/agents/review.md`, unless the adoption changed only documentation (see "Documentation-only changes" there).
+3. Run the review steps `docs/agents/review.md` chooses, unless the adoption changed only Markdown files (see "Markdown files" there).
 4. Open a pull request with the review record.
 5. Report: the path followed and the template commit used; placeholders filled and anything left unknown; existing rules moved and where; verification and header check results; anything you were unsure about.
 
@@ -84,7 +84,7 @@ Every path records the template commit in a decision, so the next update knows w
 Use the format in `docs/decisions/README.md` with these values:
 
 - `areas: agents, tooling`
-- `touches:` the agent files that exist in the project, for example `AGENTS.md, CLAUDE.md, docs/agents/, docs/decisions/, .claude/rules/, .agents/skills/, .github/pull_request_template.md`
+- `touches:` the agent files that exist in the project, for example `AGENTS.md, CLAUDE.md, docs/agents/, docs/decisions/, .claude/rules/, .claude/skills/, .agents/skills/, .github/pull_request_template.md`
 - `supersedes: none`, or the previous adoption decision in Path 3
 - `decision: "Agent instructions, task guides, decisions, and the pre-merge review follow the project setup template."`
 - Title: `# D-NNN: Agent setup from the project template`
