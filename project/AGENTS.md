@@ -55,6 +55,8 @@ A path-scoped guide lives in `docs/agents/` and needs a symlink in `.claude/rule
 - When code exists because of a decision, cite the ID in a comment next to it (`// D-014: audit rows are append-only`).
 - Match the surrounding code's idiom, naming, and comment density.
 - Write prose one sentence per line, so a search match returns a complete sentence. State each rule in one place and link to it from elsewhere.
+- Write for whoever reads the file. A document people read uses plain, direct English: short sentences, ordinary words, and any term explained the first time it appears. A file that mainly instructs an agent is terse and structured. A file both read is written plainly, because plain words cost a machine nothing and jargon costs a person a lot.
+- Speak to the user the same way: simple language, and explain a term rather than assuming it.
 - `docs/SYSTEMS.md` records what exists and `docs/decisions/` records why; neither repeats the other.
 - Graphify is code-only and advisory: never run semantic (LLM-backed) extraction, community labeling, a full rebuild, or `graphify claude install` unless the user explicitly asks, and trust current source over a stale graph.
 

@@ -21,6 +21,7 @@ Work from the repository root.
 - `project/` must stay internally consistent: every path, section name, and command one file refers to must exist in another. Check this after every change.
 - Never add symlinks or a `CLAUDE.md` under `project/`.
 - Write prose one sentence per line. State each rule in one place and link to it from elsewhere.
+- Write for whoever reads the file. `README.md`, `ADOPT.md`, and `CHANGELOG.md` are read by people, so they use plain, direct English with short sentences and ordinary words. Files that mainly instruct an agent are terse and structured. A file both read is written plainly.
 - Do not remove or weaken a rule in `project/` without the user's explicit permission.
 
 ## Changing the template

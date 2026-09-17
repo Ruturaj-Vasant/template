@@ -4,6 +4,12 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Write for whoever reads the file
+
+- `project/AGENTS.md` gains two rules under "While you work": documents people read use plain, direct English, files that mainly instruct an agent stay terse and structured, and a file both read is written plainly. The second rule asks for the same plain language when speaking to the user.
+- The template's own `AGENTS.md` gains the matching rule, since `README.md`, `ADOPT.md`, and `CHANGELOG.md` are written for people.
+- To take this change: copy the two bullets into your project's `AGENTS.md`, under the existing "one sentence per line" rule. Nothing else changes, and existing documents are not rewritten for this alone; bring them into line when you next edit them for another reason.
+
 ## Markdown files are notes; review steps follow risk; performance step
 
 - `AGENTS.md` states that Markdown files are notes: they are never verified or reviewed, even on a branch that also changes code.
