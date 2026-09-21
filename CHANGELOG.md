@@ -4,6 +4,14 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## End-to-end checks
+
+- A new guide, `project/docs/agents/end-to-end.md`, covers the defects a response-level test cannot see: a correct response that a browser then refuses to act on, and a build artifact that is not the source you changed. It says when to run a real browser, what to assert, and how to keep the tooling optional so the ordinary check command stays fast. It has a section for Apple platforms too, covering XCTest, Swift Testing and XCUITest, and which destinations to name.
+- `project/AGENTS.md` routes it from the task guides table and names it in the verify step of "Definition of done".
+- `project/docs/agents/review.md` adds it to the steps a branch's risk can call for, beside security and performance.
+- `ADOPT.md` gains a setting-up step for filling its placeholders and deleting the section that does not apply.
+- To take this change: copy `docs/agents/end-to-end.md` into your project, fill its two or four placeholders with your own commands, delete the section for a platform you do not ship, and add the two routing lines to `AGENTS.md` and the one bullet to `docs/agents/review.md`. A project with no user-facing surface can skip all of it.
+
 ## Write for whoever reads the file
 
 - `project/AGENTS.md` gains two rules under "While you work": documents people read use plain, direct English, files that mainly instruct an agent stay terse and structured, and a file both read is written plainly. The second rule asks for the same plain language when speaking to the user.

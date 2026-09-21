@@ -65,10 +65,11 @@ Do these in order, so no placeholder is filled in a file that is then deleted.
 1. **Links.** The template ships no symlinks, so create them: `ln -s AGENTS.md CLAUDE.md`; the performance skill for Claude Code: `mkdir -p .claude/skills/performance && ln -s ../../../.agents/skills/performance/SKILL.md .claude/skills/performance/SKILL.md`; and one link per path-scoped guide: `mkdir -p .claude/rules && ln -s ../../docs/agents/<guide>.md .claude/rules/<guide>.md`.
 2. **Example guide.** Rename `docs/agents/example-guide.md` and `.agents/skills/example-guide/` to a real guide (for example `frontend`), including the `name:` in the skill, and link it as above. If the project has no path-scoped guide yet, delete both and the first row of the task guides table.
 3. **Graphify.** If the project does not use Graphify, delete `docs/agents/graphify.md`, its row in the task guides table, and the Graphify bullet in `AGENTS.md`.
-4. **Default branch.** If it is not `main`, find every mention with `rg -n "\bmain\b" AGENTS.md docs .agents .github` and replace them.
-5. **Placeholders.** Fill every placeholder that `rg -n --hidden "TODO\(template\)"` lists, until it prints nothing. Never invent facts to fill one: ask the user, or record what is unknown in `docs/SYSTEMS.md` under "Not yet decided".
-6. **Deployment.** If the repository is served as static files (for example without a build step), exclude `AGENTS.md`, `CLAUDE.md`, `docs`, `.claude`, `.agents`, and `.github` from what is served.
-7. **Check links.** `find . -path ./.git -prune -o -type l ! -exec test -e {} \; -print` prints nothing.
+4. **End-to-end checks.** Fill the placeholders in `docs/agents/end-to-end.md` with the project's own commands, and delete the section that does not apply (a project with no browser deletes "In a browser"; one that ships nothing for Apple platforms deletes "On Apple platforms"). If the project has no user-facing surface at all, delete the guide and its row in the task guides table.
+5. **Default branch.** If it is not `main`, find every mention with `rg -n "\bmain\b" AGENTS.md docs .agents .github` and replace them.
+6. **Placeholders.** Fill every placeholder that `rg -n --hidden "TODO\(template\)"` lists, until it prints nothing. Never invent facts to fill one: ask the user, or record what is unknown in `docs/SYSTEMS.md` under "Not yet decided".
+7. **Deployment.** If the repository is served as static files (for example without a build step), exclude `AGENTS.md`, `CLAUDE.md`, `docs`, `.claude`, `.agents`, and `.github` from what is served.
+8. **Check links.** `find . -path ./.git -prune -o -type l ! -exec test -e {} \; -print` prints nothing.
 
 ## Finishing every path
 
