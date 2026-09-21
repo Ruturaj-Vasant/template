@@ -32,6 +32,7 @@ A decision named in another decision's `supersedes:` is no longer current.
 | When you are... | Read |
 |---|---|
 | TODO(template): The work a path-scoped guide covers, e.g. "Editing pages, styles, or UI" | TODO(template): The guide path, e.g. `docs/agents/frontend.md` (Claude Code loads it automatically; do not read it twice) |
+| Changing anything a browser, a device, or an operating system decides | `docs/agents/end-to-end.md` |
 | Finishing a feature, before merging into `main`, or asked to review code | `docs/agents/review.md` |
 | Building or querying the code graph | `docs/agents/graphify.md` |
 | Writing a prompt for another agent session | `docs/agents/handoff.md` |
@@ -73,6 +74,7 @@ TODO(template): The single command that must pass (build, lint, and tests), e.g.
 For every non-trivial change:
 
 1. When a file other than Markdown changed, verify and report the results, including anything you could not check.
+   If the change touches a surface a browser or a device decides, `docs/agents/end-to-end.md` says what that means and what to run.
 2. Update `docs/SYSTEMS.md` when what exists changes.
 3. Record meaningful decisions as described in `docs/decisions/README.md`, and run its header checks after changing `docs/decisions/` or moving or renaming files.
 4. If `graphify-out/graph.json` exists and code changed, run `graphify update .`.
