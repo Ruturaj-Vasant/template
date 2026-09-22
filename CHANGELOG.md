@@ -4,6 +4,14 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Playwright and Xcode are the tools that drive a surface
+
+- `project/docs/agents/end-to-end.md` gains a "Which tool" section naming one tool per surface: Playwright for anything a browser runs, Xcode and Swift for anything built for an Apple platform (Swift Testing or XCTest for logic, XCUITest for the interface). It forbids a second browser driver or interface automation tool beside them, and forbids a hand-rolled script that parses HTML standing in for a real browser. Its two browser placeholders now ask for the Playwright install and run commands.
+- `project/AGENTS.md` states the same rule under "While you work", so a session follows it without opening the guide.
+- `project/docs/agents/review.md` names the two tools in its end-to-end step.
+- `ADOPT.md` says which placeholders to fill with which tool, to trim "Which tool" to the tools that survive, and what to write when the surface is planned but does not exist yet.
+- To take this change: copy the "Which tool" section into `docs/agents/end-to-end.md` (keeping only the tools your project has surfaces for), copy the one bullet into the "While you work" list in `AGENTS.md`, and add the tool sentence to the end-to-end step in `docs/agents/review.md`. A project already driving its browser tests with another tool keeps them and records the exception in a decision rather than rewriting them for this alone.
+
 ## End-to-end checks
 
 - A new guide, `project/docs/agents/end-to-end.md`, covers the defects a response-level test cannot see: a correct response that a browser then refuses to act on, and a build artifact that is not the source you changed. It says when to run a real browser, what to assert, and how to keep the tooling optional so the ordinary check command stays fast. It has a section for Apple platforms too, covering XCTest, Swift Testing and XCUITest, and which destinations to name.

@@ -9,7 +9,8 @@ It gives every session, local or remote, the same rules, the right context for t
 - **Task guides.** Detailed rules live in `docs/agents/` and are read only when the task needs them. Path-scoped guides load automatically: through `.claude/rules/` symlinks in Claude Code and pointer skills in `.agents/skills/` in Codex.
 - **Current state.** `docs/SYSTEMS.md` records what exists now.
 - **Decisions.** `docs/decisions/` holds one file per decision, with a one-line header that agents search instead of reading every file.
-- **Pre-merge review.** Before a branch merges into `main`, it gets the review steps its risk calls for (simplify, performance, code review, security review), and the results go in the pull request.
+- **Pre-merge review.** Before a branch merges into `main`, it gets the review steps its risk calls for (simplify, performance, code review, security review, end-to-end), and the results go in the pull request.
+  Anything a browser or an Apple device decides is driven by a real tool: Playwright for the browser, Xcode and Swift for Apple platforms.
   Markdown files are notes and are never verified or reviewed.
 - **Code graph (optional).** Graphify in code-only mode for architecture and change-impact questions.
 

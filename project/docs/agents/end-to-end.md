@@ -28,10 +28,22 @@ Run an end-to-end check when the change touches:
 A change to logic that has no surface does not need one.
 This is not a rule that every feature gets an end-to-end test; it is a rule about where a particular class of defect hides.
 
+## Which tool
+
+Two tools, chosen once, so every session drives a surface the same way.
+
+- **Playwright** for anything a browser runs: a web page, a web application, an embedded web view, or a response a browser is expected to act on.
+- **Xcode and Swift** for anything built for an Apple platform: Swift Testing or XCTest for logic, XCUITest for the interface.
+
+Never add a second browser driver or interface automation tool beside them, and never substitute a hand-rolled script that parses HTML for a real browser.
+A project with both a web surface and an Apple app uses both tools, each for its own surface.
+
 ## In a browser
 
-TODO(template): The command that installs the browser tooling and a browser, e.g. `make browser`.
-TODO(template): The command that runs the browser tests, e.g. `pytest tests/browser`.
+Playwright drives the browser.
+
+TODO(template): The command that installs Playwright and its browsers, e.g. `npm install -D @playwright/test && npx playwright install chromium`.
+TODO(template): The command that runs the browser tests, e.g. `npx playwright test`.
 
 - **Drive the real thing.** Load the page, fill the fields, press the button. Assert on what the browser then does, not on what the server sent.
 - **Assert that it moved.** "The browser left for the right address carrying the right value" is the assertion that catches a blocked redirect. "The response was a 303" is not.
@@ -40,6 +52,8 @@ TODO(template): The command that runs the browser tests, e.g. `pytest tests/brow
 - **Never let them be why the suite cannot run.** A skipped browser test is a cost worth stating; a suite that will not start is not.
 
 ## On Apple platforms
+
+Xcode and Swift run the tests.
 
 TODO(template): The scheme and destination, e.g. `xcodebuild test -scheme <Scheme> -destination 'platform=macOS'`.
 TODO(template): Whether the project uses XCTest, Swift Testing, or both.
