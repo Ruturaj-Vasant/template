@@ -31,7 +31,7 @@ Also run, whichever row applies:
 
 - **Security review** when the changes touch authentication, permissions, secrets or tokens, input from users or outside systems, file handling, dependencies, build or deployment configuration, removed ignore rules, or an area listed under "Project security checks".
 - **Performance** when the changes touch database queries, network calls, work that grows with the amount of data (loops, lists, rendering many items), startup, or an area listed under "Project performance checks".
-- **End-to-end** when the changes touch something a browser, a device, or an operating system decides rather than something the code decides: markup, response headers, a content security policy, a redirect, a form, a screen, a control, or a permission prompt. `docs/agents/end-to-end.md` says what to run and why a response-level test cannot see this class of defect.
+- **End-to-end** when the changes touch something a browser, a device, or an operating system decides rather than something the code decides: markup, response headers, a content security policy, a redirect, a form, a screen, a control, or a permission prompt. `docs/agents/end-to-end.md` says what to run and why a response-level test cannot see this class of defect. It is driven with Playwright for a browser surface and with Xcode and Swift for an Apple one.
 
 Verification runs for every branch that changes a file other than Markdown.
 If a fix made during review moves the branch into another row or adds an area, run the steps that now apply.

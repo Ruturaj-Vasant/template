@@ -55,6 +55,7 @@ A path-scoped guide lives in `docs/agents/` and needs a symlink in `.claude/rule
 - Prefer a visible `unknown`, `incomplete`, or `unavailable` over a guessed value. Never silently swallow a failure.
 - When code exists because of a decision, cite the ID in a comment next to it (`// D-014: audit rows are append-only`).
 - Match the surrounding code's idiom, naming, and comment density.
+- Test an application through the tool that owns its surface: Playwright for anything a browser runs, Xcode and Swift for anything built for an Apple platform. Never add a second browser driver or interface automation tool beside them; `docs/agents/end-to-end.md` has the commands and what to assert.
 - Write prose one sentence per line, so a search match returns a complete sentence. State each rule in one place and link to it from elsewhere.
 - Write for whoever reads the file. A document people read uses plain, direct English: short sentences, ordinary words, and any term explained the first time it appears. A file that mainly instructs an agent is terse and structured. A file both read is written plainly, because plain words cost a machine nothing and jargon costs a person a lot.
 - Speak to the user the same way: simple language, and explain a term rather than assuming it.
