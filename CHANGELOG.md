@@ -4,6 +4,11 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Adopting without Graphify no longer leaves references behind
+
+- `ADOPT.md`'s Graphify step listed three places to delete and missed two, so a project that does not use Graphify was left with a `graphify update` item in "Definition of done" and the word in the `tooling` tag description in `docs/decisions/README.md`. The step now names all five and ends with a check: `rg -i graphify` must find nothing.
+- To take this change: only if your project deleted Graphify during adoption. Run `rg -i graphify`, and delete whatever it finds outside a decision that explains the deletion, renumbering the definition-of-done items.
+
 ## Playwright and Xcode are the tools that drive a surface
 
 - `project/docs/agents/end-to-end.md` gains a "Which tool" section naming one tool per surface: Playwright for anything a browser runs, Xcode and Swift for anything built for an Apple platform (Swift Testing or XCTest for logic, XCUITest for the interface). It forbids a second browser driver or interface automation tool beside them, and forbids a hand-rolled script that parses HTML standing in for a real browser. Its two browser placeholders now ask for the Playwright install and run commands.
