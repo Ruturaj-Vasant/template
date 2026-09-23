@@ -103,6 +103,7 @@ For a branch that changes only Markdown files, one line saying "Skipped: Markdow
 - The change does not contradict a current decision that touches the same paths. If it must, write a new decision that supersedes the old one.
 - The change follows `docs/ARCHITECTURE.md`. If it departs from it, the plan is updated in the same branch with the reason.
 - A feature that was built or changed has its decision file.
+- Every feature and bug fix has the tests "Definition of done" in `AGENTS.md` asks for, and no test was deleted, skipped, or weakened to pass.
 - The project principles in `AGENTS.md` still hold.
 - The risk check in the pull request still matches what was built, and each approval it names is obtained or listed as pending.
 
