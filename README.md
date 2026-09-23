@@ -7,8 +7,11 @@ It gives every session, local or remote, the same rules, the right context for t
 
 - **One instruction file.** `AGENTS.md` holds the standing rules; `CLAUDE.md` is a symlink to it, so Claude Code and Codex read the same thing.
 - **Task guides.** Detailed rules live in `docs/agents/` and are read only when the task needs them. Path-scoped guides load automatically: through `.claude/rules/` symlinks in Claude Code and pointer skills in `.agents/skills/` in Codex.
+- **Plans.** `docs/PRODUCT.md` says what the project is meant to become and for whom; `docs/ARCHITECTURE.md` says how it is meant to be built, and keeps the reasons and rejected options for each choice. Both are edited freely.
 - **Current state.** `docs/SYSTEMS.md` records what exists now.
-- **Decisions.** `docs/decisions/` holds one file per decision, with a one-line header that agents search instead of reading every file.
+- **Feature decisions.** `docs/decisions/` holds one file per feature decision: why a feature was built the way it was, written when it is built, with a one-line header that agents search instead of reading every file.
+- **Reasons for the rules.** `docs/agents/background.md` explains why each working rule exists, and records which template commit the project follows.
+- **Risk check.** Before building a feature that touches data, the agent reports the data involved, the rules that may apply, the security risks, and the approvals needed, and stops only on a violation or a missing approval.
 - **Pre-merge review.** Before a branch merges into `main`, it gets the review steps its risk calls for (simplify, performance, code review, security review), and the results go in the pull request.
   Markdown files are notes and are never verified or reviewed.
 - **Code graph (optional).** Graphify in code-only mode for architecture and change-impact questions.
@@ -37,18 +40,18 @@ The agent clones it outside the project folder and follows one of the paths in `
 
 1. Copy `project/` into the project's root.
 2. Fill every `TODO(template)`.
-3. Write D-001 recording the template commit and the project's principles.
+3. Record the template commit in `docs/agents/background.md`, and the project's principles in `AGENTS.md`.
 4. Set `origin/HEAD`.
 
 **Existing project:**
 
 1. Work on a branch.
 2. Keep every existing rule, moving each one to where it belongs, and never overwrite.
-3. Turn old decision notes into decision files.
+3. Sort old decision notes: product strategy into `docs/PRODUCT.md`, architecture choices into `docs/ARCHITECTURE.md`, reasons for working rules into `docs/agents/background.md`, and only feature decisions into decision files.
 4. List anything it was not sure about.
 5. Run the pre-merge review if anything other than Markdown files changed.
 
-Either way, the project records which template commit it adopted in a decision.
+Either way, the project records which template commit it adopted in `docs/agents/background.md`.
 
 **Updating a project later:**
 

@@ -30,6 +30,7 @@ When unsure between two rows, pick the higher one.
 Also run, whichever row applies:
 
 - **Security review** when the changes touch authentication, permissions, secrets or tokens, input from users or outside systems, file handling, dependencies, build or deployment configuration, removed ignore rules, or an area listed under "Project security checks".
+- **Security review** whenever the change needed a risk check under `AGENTS.md`, however small it looks, because it changes how data is stored, shared, or sent.
 - **Performance** when the changes touch database queries, network calls, work that grows with the amount of data (loops, lists, rendering many items), startup, or an area listed under "Project performance checks".
 - **End-to-end** when the changes touch something a browser, a device, or an operating system decides rather than something the code decides: markup, response headers, a content security policy, a redirect, a form, a screen, a control, or a permission prompt. `docs/agents/end-to-end.md` says what to run and why a response-level test cannot see this class of defect.
 
@@ -100,7 +101,10 @@ For a branch that changes only Markdown files, one line saying "Skipped: Markdow
 - Nothing outside the requested scope changed, and `git diff --stat main...HEAD` matches what you intended.
 - No placeholder, debug, or commented-out code is left behind.
 - The change does not contradict a current decision that touches the same paths. If it must, write a new decision that supersedes the old one.
+- The change follows `docs/ARCHITECTURE.md`. If it departs from it, the plan is updated in the same branch with the reason.
+- A feature that was built or changed has its decision file.
 - The project principles in `AGENTS.md` still hold.
+- The risk check in the pull request still matches what was built, and each approval it names is obtained or listed as pending.
 
 ## Acting on findings
 
@@ -115,3 +119,14 @@ Record anything you chose not to fix, with the reason.
 Report findings ranked most severe first.
 For each, give the file and line, what goes wrong, and a concrete scenario that triggers it.
 Do not report style preferences as defects.
+
+## Why the review works this way
+
+- Reviewing each branch before it reaches `main` is cheaper than one large review later.
+- Simplify and performance run first because they edit code, so code review and security review see the final code.
+- Markdown files are skipped because they have nothing to build, run, or exploit; reviewing them could only suggest wording. The only protection for instruction files is the `AGENTS.md` rule against weakening them without the user's permission.
+- Steps follow risk rather than running every time: a small bug fix does not need simplify, but any change to how data is stored, shared, or sent needs security review however small it looks.
+- Performance is its own step because it needs measurements and must propose, not apply, larger designs such as caches. Claude Code has no built-in performance skill, so the project skill in `.agents/skills/performance/` serves both tools.
+- Codex ships only `/review`, so the project skills `simplify` and `security-review` give it the other steps, written in our own words with the project checks included.
+- Claude's `/code-review` without a target sees only unpushed work, and `/security-review` needs `origin/HEAD`, which a locally created or single-branch clone lacks. The setup command in "Getting the scope right" fixes both.
+- The review is an instruction, not an enforced gate, unless GitHub branch protection is configured.
