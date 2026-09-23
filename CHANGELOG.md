@@ -4,6 +4,31 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Commit every change; Playwright for browser checks
+
+- `project/AGENTS.md` and the template's own `AGENTS.md` gain a rule under "While you work" and "Rules": commit every change as soon as it is made, and push the branch whenever there is a remote, even when the work is unfinished or may never be merged. `project/docs/agents/background.md` gains "Committing" with the reason.
+- `project/docs/agents/end-to-end.md` recommends Playwright as the default browser tool, says when to use its TypeScript or Python runner and what it cannot check, and uses Playwright commands as the placeholder examples.
+
+**Adopted projects must:** add the commit rule to `AGENTS.md` and its reason to `docs/agents/background.md`. If the project has browser checks but no tool yet, consider Playwright, and record the choice in `docs/ARCHITECTURE.md`. A project that already uses another browser tool keeps it.
+
+## Decisions are for features only; product and architecture plans; risk check
+
+- Decisions now record only how and why a feature was built, written in the pull request that builds it. `project/AGENTS.md` gains "Where things are written" and "What belongs in a decision", and `project/docs/decisions/README.md` gains a "Not built" section in the decision format, a prompt under each heading, a "Why this format" section, and the rule that numbers are never reused.
+- New `project/docs/PRODUCT.md` (what the project is meant to become, for whom, in what order, and a compliance table) and `project/docs/ARCHITECTURE.md` (the parts, where each runs, a "Choices and why" section with the reasons and rejected options for each choice, and "Still open"). Both are living plans, edited freely. `project/docs/SYSTEMS.md` "Not yet decided" now points to "Still open".
+- New `project/docs/agents/background.md`: the reasons behind the working rules, and the `Template commit:` line. `project/docs/agents/review.md` and `project/docs/agents/graphify.md` gain "Why" sections.
+- The template commit is no longer recorded in an adoption decision, because setting up is not a feature. `ADOPT.md` records it in `docs/agents/background.md` ("Recording the template commit"), and Path 3 still finds commits recorded the old way.
+- `project/AGENTS.md` gains a "Risk check" before features (data, regulations, security risks, approvals, violations; stop only on a violation or a missing approval) and a rule that deadlines never justify skipping tests, reviews, the risk check, or history. The review guide adds security review whenever a risk check was needed, and two scope checks: the change follows `docs/ARCHITECTURE.md`, and a built feature has its decision file. The pull request template gains a "Risk check" section.
+
+**Adopted projects must:**
+
+1. Copy `docs/PRODUCT.md`, `docs/ARCHITECTURE.md`, and `docs/agents/background.md`, and fill their placeholders from what the project already knows. Never invent facts: leave "Unknown" or list the item under "Still open".
+2. Sort existing decisions. Product strategy moves to `docs/PRODUCT.md`, architecture choices to "Choices and why" in `docs/ARCHITECTURE.md`, and the reasons behind working rules to `docs/agents/background.md` or the matching guide. Keep only feature decisions. Delete the moved files, never reuse their numbers, and say in `docs/decisions/README.md` which numbers were retired and where their content went. Update every citation of a retired number.
+3. Put the template commit on the `Template commit:` line in `docs/agents/background.md`.
+4. In `AGENTS.md`, add "Where things are written" with "What belongs in a decision", "Risk check" and its line in "Before you start", the deadline rule, the new task guide rows, and the new wording of definition-of-done items 2 and 3.
+5. Update `docs/decisions/README.md`, `docs/SYSTEMS.md`, `docs/agents/review.md`, `docs/agents/graphify.md`, and `.github/pull_request_template.md` to match.
+
+A project that already had its own risk check or plan files keeps them, and merges in only what is missing.
+
 ## End-to-end checks
 
 - A new guide, `project/docs/agents/end-to-end.md`, covers the defects a response-level test cannot see: a correct response that a browser then refuses to act on, and a build artifact that is not the source you changed. It says when to run a real browser, what to assert, and how to keep the tooling optional so the ordinary check command stays fast. It has a section for Apple platforms too, covering XCTest, Swift Testing and XCUITest, and which destinations to name.

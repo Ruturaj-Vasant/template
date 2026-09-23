@@ -23,3 +23,10 @@ When `graphify-out/graph.json` exists:
 - `graphify query "<question>"` for broad questions. Results are noisy; confirm them against source.
 - `graphify explain "<symbol>"` and `graphify path "<A>" "<B>"` for known symbols.
 - `graphify affected "<symbol>"` before changing shared code, to see what depends on it.
+
+## Why code-only
+
+- Code-only extraction is free, deterministic, and sends nothing to a model, which matters when private data may sit near the code.
+- Semantic extraction of documents costs tokens on every refresh, produces inferred links that are guesses, goes stale with every change, and flattens the reasoning in plans and decisions.
+- Code and decisions are linked without the graph: code comments cite decision IDs, and decisions list the paths they affect in `touches:`.
+- `graphify claude install` is not used because it rewrites `CLAUDE.md`, and through the symlink `AGENTS.md`, and adds a hook.

@@ -2,6 +2,10 @@
 
 <!-- What changed and why, in a few bullets. -->
 
+## Risk check
+
+<!-- Required for features. See "Risk check" in AGENTS.md. Write "Documentation only" otherwise. -->
+
 ## Verification
 
 <!-- What you ran or checked, with results. Include anything you could not check. -->
@@ -19,4 +23,4 @@
 
 ## Decisions
 
-<!-- New or superseded decisions in docs/decisions/, or "none". -->
+<!-- New or superseded feature decisions in docs/decisions/, and any changed entry under "Choices and why" in docs/ARCHITECTURE.md, or "none". -->

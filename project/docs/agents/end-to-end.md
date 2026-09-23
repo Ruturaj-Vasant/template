@@ -30,8 +30,15 @@ This is not a rule that every feature gets an end-to-end test; it is a rule abou
 
 ## In a browser
 
-TODO(template): The command that installs the browser tooling and a browser, e.g. `make browser`.
-TODO(template): The command that runs the browser tests, e.g. `pytest tests/browser`.
+Playwright is the recommended default tool, unless the project already has one.
+It drives the real engines of Chrome, Firefox, and Safari (WebKit), pretends to be a given phone, grants or denies permission prompts, checks where the browser actually went, and records a step-by-step trace of every failed test.
+It is free and open source.
+Use its TypeScript runner (`@playwright/test`) when the browser code is TypeScript, or `pytest-playwright` when the project's tests are Python.
+WebKit on a computer is close to Safari on an iPhone but not the same, so features that need a real device, such as installing a web app or the real camera, still need a check by hand on a phone.
+Record the choice under "Choices and why" in `docs/ARCHITECTURE.md`.
+
+TODO(template): The command that installs the browser tooling and a browser, e.g. `npx playwright install chromium`.
+TODO(template): The command that runs the browser tests, e.g. `npx playwright test`.
 
 - **Drive the real thing.** Load the page, fill the fields, press the button. Assert on what the browser then does, not on what the server sent.
 - **Assert that it moved.** "The browser left for the right address carrying the right value" is the assertion that catches a blocked redirect. "The response was a 303" is not.
