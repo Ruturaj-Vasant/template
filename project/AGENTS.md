@@ -91,6 +91,7 @@ A path-scoped guide lives in `docs/agents/` and needs a symlink in `.claude/rule
 ## While you work
 
 - Non-trivial changes go on a new branch, never directly on `main`. Changes reach `main` only through a pull request.
+- Commit every change as soon as it is made, and push the branch whenever the repository has a remote, even when the work is unfinished or may never be merged. A commit saves progress; merging is a separate choice. Never end a session with work only in the working tree.
 - Keep the change inside the requested scope. Do not redesign unrelated areas.
 - Deadlines never justify skipping tests, reviews, the risk check, or history. If the work does not fit the time, say so and let the user cut features instead. No date is recorded as a target anywhere in the repository.
 - Never credit an AI tool as an author or contributor: no `Co-Authored-By` trailers, "Generated with" lines, or similar attribution for Claude, Codex, or any other agent in commits, pull requests, code, or documentation.

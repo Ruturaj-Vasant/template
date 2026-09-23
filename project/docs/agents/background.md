@@ -32,6 +32,11 @@ Add the reason for any rule this project adds to `AGENTS.md`, in the matching se
 - The agent stops only on violations and missing approvals, rather than asking before every feature, so low-risk work is not slowed.
 - The check is only as good as the compliance table in `docs/PRODUCT.md`, and it is not legal advice.
 
+## Committing
+
+- Work that exists only in a working tree is lost when a laptop fails, a disk is wiped, or a remote session's container is reclaimed.
+- A commit on a pushed branch costs nothing and can be dropped later, so saving progress never waits for the work to be finished or for a decision to merge it.
+
 ## Deadlines
 
 - A deadline is a reason to cut features, never a reason to skip tests, reviews, the risk check, or history, because those are the hardest things to add back later.

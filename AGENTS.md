@@ -15,6 +15,7 @@ Work from the repository root.
 ## Rules
 
 - Changes reach `main` only through a pull request from a branch.
+- Commit every change as soon as it is made, and push the branch whenever the repository has a remote, even when the work is unfinished or may never be merged. A commit saves progress; merging is a separate choice. Never end a session with work only in the working tree.
 - Never credit an AI tool as an author or contributor: no `Co-Authored-By` trailers, "Generated with" lines, or similar attribution for Claude, Codex, or any other agent in commits, pull requests, code, or documentation.
 - This repository is public. Never add project-specific content, personal details, real data, secrets, or references to specific private repositories.
 - Keep `project/` generic. Anything a project must decide for itself is a placeholder marked `TODO(template): <what to fill in>`.

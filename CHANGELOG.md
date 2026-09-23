@@ -4,6 +4,13 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Commit every change; Playwright for browser checks
+
+- `project/AGENTS.md` and the template's own `AGENTS.md` gain a rule under "While you work" and "Rules": commit every change as soon as it is made, and push the branch whenever there is a remote, even when the work is unfinished or may never be merged. `project/docs/agents/background.md` gains "Committing" with the reason.
+- `project/docs/agents/end-to-end.md` recommends Playwright as the default browser tool, says when to use its TypeScript or Python runner and what it cannot check, and uses Playwright commands as the placeholder examples.
+
+**Adopted projects must:** add the commit rule to `AGENTS.md` and its reason to `docs/agents/background.md`. If the project has browser checks but no tool yet, consider Playwright, and record the choice in `docs/ARCHITECTURE.md`. A project that already uses another browser tool keeps it.
+
 ## Decisions are for features only; product and architecture plans; risk check
 
 - Decisions now record only how and why a feature was built, written in the pull request that builds it. `project/AGENTS.md` gains "Where things are written" and "What belongs in a decision", and `project/docs/decisions/README.md` gains a "Not built" section in the decision format, a prompt under each heading, a "Why this format" section, and the rule that numbers are never reused.
