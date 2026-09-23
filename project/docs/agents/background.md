@@ -37,6 +37,12 @@ Add the reason for any rule this project adds to `AGENTS.md`, in the matching se
 - Work that exists only in a working tree is lost when a laptop fails, a disk is wiped, or a remote session's container is reclaimed.
 - A commit on a pushed branch costs nothing and can be dropped later, so saving progress never waits for the work to be finished or for a decision to merge it.
 
+## Tests
+
+- Coding agents often write tests, but not reliably: they skip them on small changes, test only the case that works, and under pressure weaken a failing test instead of fixing the code. A written rule makes tests part of done rather than a habit.
+- A test written to fail before a bug fix proves the fix works, and keeps the bug from coming back unnoticed.
+- Permission tests matter most, because a missing check fails silently: nothing breaks, someone just sees data they should not.
+
 ## Deadlines
 
 - A deadline is a reason to cut features, never a reason to skip tests, reviews, the risk check, or history, because those are the hardest things to add back later.

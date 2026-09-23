@@ -125,6 +125,15 @@ For every non-trivial change:
 5. Confirm `git status` shows only intended changes.
 6. Report anything uncertain, untested, or intentionally out of scope.
 
+**Every change to behavior ships with tests.**
+
+- A feature ships with automated tests in the same pull request: unit tests for its logic, a test for each permission or account boundary the project has: another user's or tenant's data, and a role without access, and a test for each way it can fail (bad input, missing data, an outside service that is down).
+- A bug fix starts with a test that reproduces the bug and fails; the fix then makes it pass.
+- Tests use synthetic data only.
+- Never delete, skip, or weaken a test to make it pass. If a test itself is wrong, fix it and say why in the pull request.
+- Anything a browser or a device decides also gets an end-to-end check (`docs/agents/end-to-end.md`).
+- While no test tooling exists yet, list in the report the tests the change will need once it does.
+
 **Markdown files are notes.**
 Files ending in `.md` (including `AGENTS.md`, guides, decisions, and skills) are never verified or reviewed, even on a branch that also changes code: verification and every review step cover only the other files.
 

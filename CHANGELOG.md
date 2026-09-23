@@ -4,6 +4,13 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Every change to behavior ships with tests
+
+- `project/AGENTS.md` "Definition of done" gains a testing rule: a feature ships with unit tests, permission or boundary tests, and failure-case tests in the same pull request; a bug fix starts with a failing test that reproduces it; tests use synthetic data; no test is deleted, skipped, or weakened to pass; browser- or device-decided changes also get an end-to-end check.
+- `project/docs/agents/review.md` gains a matching scope check, and `project/docs/agents/background.md` gains "Tests" with the reasons.
+
+**Adopted projects must:** add the rule above "Markdown files are notes" in `AGENTS.md`, the scope check line in `docs/agents/review.md`, and the "Tests" section in `docs/agents/background.md`. Name the project's own permission boundaries in the rule if it has them.
+
 ## Commit every change; Playwright for browser checks
 
 - `project/AGENTS.md` and the template's own `AGENTS.md` gain a rule under "While you work" and "Rules": commit every change as soon as it is made, and push the branch whenever there is a remote, even when the work is unfinished or may never be merged. `project/docs/agents/background.md` gains "Committing" with the reason.
