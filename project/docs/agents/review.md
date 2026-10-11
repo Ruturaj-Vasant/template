@@ -32,6 +32,7 @@ Also run, whichever row applies:
 - **Security review** when the changes touch authentication, permissions, secrets or tokens, input from users or outside systems, file handling, dependencies, build or deployment configuration, removed ignore rules, or an area listed under "Project security checks".
 - **Security review** whenever the change needed a risk check under `AGENTS.md`, however small it looks, because it changes how data is stored, shared, or sent.
 - **Performance** when the changes touch database queries, network calls, work that grows with the amount of data (loops, lists, rendering many items), startup, or an area listed under "Project performance checks".
+- **UI check** when the changes touch a screen: its markup, styles, layout, components, or wording. It looks at the screens in a browser at every width, in every state, and by keyboard. End-to-end asks whether the browser did the right thing; the UI check asks whether the screen is complete and usable.
 - **End-to-end** when the changes touch something a browser, a device, or an operating system decides rather than something the code decides: markup, response headers, a content security policy, a redirect, a form, a screen, a control, or a permission prompt. `docs/agents/end-to-end.md` says what to run and why a response-level test cannot see this class of defect.
 
 Verification runs for every branch that changes a file other than Markdown.
@@ -44,13 +45,15 @@ Run the chosen steps in this order, skipping the ones not chosen:
 
 1. **Simplify** first, because it edits code.
 2. **Performance** second, because it edits code too.
-3. **Code review** third, so bugs introduced by either edit are caught.
-4. **Security review** last, on the final code.
+3. **UI check** third, because it edits code too.
+4. **Code review** fourth, so bugs introduced by any of those edits are caught.
+5. **Security review** last, on the final code.
 
 | Step | Claude Code | Codex |
 |---|---|---|
 | Simplify: applies cleanups | `/simplify` | `$simplify` |
 | Performance: applies safe speedups, proposes larger ones | `/performance` | `$performance` |
+| UI check: looks at the changed screens, applies small fixes, proposes larger ones | `/ui-check` | `$ui-check` |
 | Code review: reports bugs | `/code-review main...HEAD` | `/review`, then choose the base branch `main` (terminal: `codex review --base main`) |
 | Security review: reports vulnerabilities | `/security-review`, then the project checks below | `$security-review` (includes the project checks) |
 
@@ -72,7 +75,7 @@ If `main` is checked out in another worktree, it fails for the same reason: run 
 
 - Always give Claude's `/code-review` a target such as `main...HEAD` or a PR number. Without one it only sees unpushed and uncommitted work, and finds nothing once a branch is pushed.
 - Claude's `/security-review` compares the branch with `origin/HEAD`, which the command above sets.
-- Codex's `$simplify`, `$performance`, and `$security-review` review `main...HEAD` plus uncommitted changes, without Markdown files.
+- Codex's `$simplify`, `$performance`, `$ui-check`, and `$security-review` review `main...HEAD` plus uncommitted changes, without Markdown files.
 - If any review's git command fails, stop and fix the setup. A failed diff is never "nothing to review", and never goes into the review record as a clean result.
 
 ## Project security checks
@@ -128,6 +131,7 @@ Do not report style preferences as defects.
 - Markdown files are skipped because they have nothing to build, run, or exploit; reviewing them could only suggest wording. The only protection for instruction files is the `AGENTS.md` rule against weakening them without the user's permission.
 - Steps follow risk rather than running every time: a small bug fix does not need simplify, but any change to how data is stored, shared, or sent needs security review however small it looks.
 - Performance is its own step because it needs measurements and must propose, not apply, larger designs such as caches. Claude Code has no built-in performance skill, so the project skill in `.agents/skills/performance/` serves both tools.
+- The UI check is its own step because a screen can pass every test and still be unusable: a state nobody designed, a layout that breaks on a phone, or a control a keyboard cannot reach. Only looking at it finds these. Neither tool has a built-in skill for it, so `.agents/skills/ui-check/` serves both.
 - Codex ships only `/review`, so the project skills `simplify` and `security-review` give it the other steps, written in our own words with the project checks included.
 - Claude's `/code-review` without a target sees only unpushed work, and `/security-review` needs `origin/HEAD`, which a locally created or single-branch clone lacks. The setup command in "Getting the scope right" fixes both.
 - The review is an instruction, not an enforced gate, unless GitHub branch protection is configured.
