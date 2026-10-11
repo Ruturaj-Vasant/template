@@ -17,8 +17,10 @@ TODO(template): One or two sentences on what the repository contains today, and 
 | `docs/ARCHITECTURE.md` | Living architecture plan: the parts, where each runs, and the reasons for each choice |
 | `docs/agents/` | Task guides for agents, and `background.md` with the reasons behind the working rules |
 | `docs/decisions/` | Feature decisions, one file each with a searchable header |
+| `docs/design/` | The chosen design direction and its mockups |
 | `.claude/rules/` | Symlinks to path-scoped task guides, loaded automatically by Claude Code |
-| `.agents/skills/` | Codex skills: `simplify`, `performance`, `security-review`, and pointer skills for path-scoped guides |
+| `.agents/skills/` | Codex skills: `simplify`, `performance`, `ui-check`, `security-review`, `ux-design`, and pointer skills for path-scoped guides |
+| `.claude/skills/` | Symlinks to the skills Claude Code has no built-in version of: `performance`, `ui-check`, and `ux-design` |
 | `.github/pull_request_template.md` | Pull request description with the required review record |
 
 ## External dependencies

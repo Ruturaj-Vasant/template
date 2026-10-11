@@ -16,7 +16,7 @@ TODO(template): The users and customers, in the order they are served, and why e
 
 ## Users and roles
 
-TODO(template): Each kind of user and what they may see and do, or "Not decided yet".
+TODO(template): Each kind of user, what they may see and do, and the tasks each does most often, or "Not decided yet". The `ux-design` skill plans screens from these tasks.
 
 ## Roadmap
 

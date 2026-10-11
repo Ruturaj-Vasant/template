@@ -42,7 +42,7 @@ The goal is the template's structure with none of the project's existing rules l
 5. Sort old decision notes, and existing decision files, as in step 2. Only feature decisions stay as decision files, in the format in `docs/decisions/README.md`.
    Keep their original dates, and number them in date order. Keep an existing numbering scheme if its IDs are already cited in code, and never reuse a retired number.
    Say in `docs/decisions/README.md` which numbers were retired and where their content went.
-6. Copy the template files the project does not have yet, such as the review skills (including `performance`), the pull request template, and the guides.
+6. Copy the template files the project does not have yet, such as the review skills (including `performance` and `ui-check`), the `ux-design` skill, `docs/design/`, the pull request template, and the guides.
 7. Do "Setting up the copied files".
 8. Do "Finishing every path". In the pull request, also list every existing rule and decision and where it went, and anything you were not sure where to put.
 
@@ -65,14 +65,16 @@ Use this when the project already adopted the template and the user asks to upda
 
 Do these in order, so no placeholder is filled in a file that is then deleted.
 
-1. **Links.** The template ships no symlinks, so create them: `ln -s AGENTS.md CLAUDE.md`; the performance skill for Claude Code: `mkdir -p .claude/skills/performance && ln -s ../../../.agents/skills/performance/SKILL.md .claude/skills/performance/SKILL.md`; and one link per path-scoped guide: `mkdir -p .claude/rules && ln -s ../../docs/agents/<guide>.md .claude/rules/<guide>.md`.
+1. **Links.** The template ships no symlinks, so create them: `ln -s AGENTS.md CLAUDE.md`; the skills Claude Code has no built-in version of: `for s in performance ui-check ux-design; do mkdir -p .claude/skills/$s && ln -s ../../../.agents/skills/$s/SKILL.md .claude/skills/$s/SKILL.md; done`; and one link per path-scoped guide: `mkdir -p .claude/rules && ln -s ../../docs/agents/<guide>.md .claude/rules/<guide>.md`.
 2. **Example guide.** Rename `docs/agents/example-guide.md` and `.agents/skills/example-guide/` to a real guide (for example `frontend`), including the `name:` in the skill, and link it as above. If the project has no path-scoped guide yet, delete both and the first row of the task guides table.
 3. **Graphify.** If the project does not use Graphify, delete `docs/agents/graphify.md`, its row in the task guides table, and the Graphify bullet in `AGENTS.md`.
 4. **End-to-end checks.** Fill the placeholders in `docs/agents/end-to-end.md` with the project's own commands, and delete the section that does not apply (a project with no browser deletes "In a browser"; one that ships nothing for Apple platforms deletes "On Apple platforms"). If the project has no user-facing surface at all, delete the guide and its row in the task guides table.
-5. **Default branch.** If it is not `main`, find every mention with `rg -n "\bmain\b" AGENTS.md docs .agents .github` and replace them.
-6. **Placeholders.** Fill every placeholder that `rg -n --hidden "TODO\(template\)"` lists, until it prints nothing. The `Template commit:` line is filled as "Recording the template commit" says. Never invent facts to fill one: ask the user, or record what is unknown, under "Still open" in `docs/ARCHITECTURE.md` or as "Unknown" in `docs/PRODUCT.md`.
-7. **Deployment.** If the repository is served as static files (for example without a build step), exclude `AGENTS.md`, `CLAUDE.md`, `docs`, `.claude`, `.agents`, and `.github` from what is served.
-8. **Check links.** `find . -path ./.git -prune -o -type l ! -exec test -e {} \; -print` prints nothing.
+5. **User interface.** If the project has no user interface and none is planned, delete `docs/design/`, `.agents/skills/ux-design/`, `.agents/skills/ui-check/`, their links in `.claude/skills/`, and every line that names them: `rg -n "ux-design|ui-check|UI check|docs/design" AGENTS.md docs .agents .github`.
+   If the project already has screens but no recorded design direction, ask the user whether to record the current look as the chosen direction in `docs/design/README.md` or to choose a new one with the `ux-design` skill. Never record a direction the user has not confirmed.
+6. **Default branch.** If it is not `main`, find every mention with `rg -n "\bmain\b" AGENTS.md docs .agents .github` and replace them.
+7. **Placeholders.** Fill every placeholder that `rg -n --hidden "TODO\(template\)"` lists, until it prints nothing. The `Template commit:` line is filled as "Recording the template commit" says. Never invent facts to fill one: ask the user, or record what is unknown, under "Still open" in `docs/ARCHITECTURE.md` or as "Unknown" in `docs/PRODUCT.md`.
+8. **Deployment.** If the repository is served as static files (for example without a build step), exclude `AGENTS.md`, `CLAUDE.md`, `docs`, `.claude`, `.agents`, and `.github` from what is served.
+9. **Check links.** `find . -path ./.git -prune -o -type l ! -exec test -e {} \; -print` prints nothing.
 
 ## Finishing every path
 

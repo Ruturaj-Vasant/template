@@ -4,6 +4,26 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Plan screens before building them, and check them before merging
+
+- New skill `project/.agents/skills/ux-design/`: choosing a design direction from two or three mockups, planning a feature's screens with every state they can be in, and auditing existing screens. It writes plans and mockups for the user to approve and never changes application code.
+- New skill `project/.agents/skills/ui-check/`: a review step that looks at the changed screens in a browser at every screen width, in every state, and by keyboard, fixes clear, local problems, and proposes larger ones.
+- New `project/docs/design/README.md` for the chosen design direction and its mockups.
+- `project/AGENTS.md` gains two lines in "Before you start" (the user chooses a design direction before the first screen; features with new screens or navigation are planned with `ux-design` and approved first), a `docs/design/` row in "Where things are written", a `ux-design` row in the task guides table, and the UI check in the review order.
+- `project/docs/agents/review.md` adds the UI check: when it runs, its place third in the order, its commands, and the reason. The pull request template gains a UI check row.
+- `project/docs/agents/example-guide.md` lists the sections a frontend guide needs, `project/docs/PRODUCT.md` asks for the tasks each role does most often, `project/docs/agents/background.md` gains "User interface" with the reasons, and `project/docs/SYSTEMS.md` lists the new files.
+- `ADOPT.md` links the two new skills for Claude Code, and gains a "User interface" setup step.
+
+**Adopted projects must:**
+
+1. Copy `.agents/skills/ux-design/` and `.agents/skills/ui-check/`, and link both into `.claude/skills/` as `ADOPT.md` "Setting up the copied files" step 1 shows.
+2. Make the `AGENTS.md`, `docs/agents/review.md`, pull request template, `docs/agents/background.md`, `docs/PRODUCT.md`, and `docs/SYSTEMS.md` changes above.
+3. Copy `docs/design/README.md` unless the project already records its design somewhere; then keep that and point the new lines to it.
+4. If the project has screens but no recorded design direction, ask the user whether to record the current look or choose a new one, as "Setting up the copied files" step 5 says.
+5. If the project has a frontend guide, compare it with the sections in `docs/agents/example-guide.md` and list any missing ones for the user, rather than inventing their content.
+
+A project with no user interface and none planned skips this entry, apart from recording the template commit.
+
 ## Every change to behavior ships with tests
 
 - `project/AGENTS.md` "Definition of done" gains a testing rule: a feature ships with unit tests, permission or boundary tests, and failure-case tests in the same pull request; a bug fix starts with a failing test that reproduces it; tests use synthetic data; no test is deleted, skipped, or weakened to pass; browser- or device-decided changes also get an end-to-end check.

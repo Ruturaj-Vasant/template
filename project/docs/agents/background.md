@@ -43,6 +43,13 @@ Add the reason for any rule this project adds to `AGENTS.md`, in the matching se
 - A test written to fail before a bug fix proves the fix works, and keeps the bug from coming back unnoticed.
 - Permission tests matter most, because a missing check fails silently: nothing breaks, someone just sees data they should not.
 
+## User interface
+
+- Coding agents build screens that pass their tests and are still hard to use: the state with data is built and the empty, failed, and not-allowed states are forgotten, a layout breaks on a phone, or a control cannot be reached by keyboard. These are found only by looking at the screen, so the review has a UI check.
+- Without a chosen look, each agent session invents its own, and a product drifts into a mix of styles. Choosing a design direction before the first screen, and writing its rules as tokens in the frontend guide, gives every session the same standard.
+- The user chooses the direction from two or three mockups, because taste is the user's call, and comparing options shows what they want faster than describing it.
+- Screens are planned before they are built, because changing a plan costs minutes and changing built screens costs a pull request.
+
 ## Deadlines
 
 - A deadline is a reason to cut features, never a reason to skip tests, reviews, the risk check, or history, because those are the hardest things to add back later.

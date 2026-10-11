@@ -12,7 +12,8 @@ It gives every session, local or remote, the same rules, the right context for t
 - **Feature decisions.** `docs/decisions/` holds one file per feature decision: why a feature was built the way it was, written when it is built, with a one-line header that agents search instead of reading every file.
 - **Reasons for the rules.** `docs/agents/background.md` explains why each working rule exists, and records which template commit the project follows.
 - **Risk check.** Before building a feature that touches data, the agent reports the data involved, the rules that may apply, the security risks, and the approvals needed, and stops only on a violation or a missing approval.
-- **Pre-merge review.** Before a branch merges into `main`, it gets the review steps its risk calls for (simplify, performance, code review, security review), and the results go in the pull request.
+- **User interface.** Before the first screen is built, the user picks a design direction from two or three mockups, and its rules are written into the frontend guide. A `ux-design` skill plans each feature's screens, with every state they can be in, for the user to approve before they are built.
+- **Pre-merge review.** Before a branch merges into `main`, it gets the review steps its risk calls for (simplify, performance, UI check, code review, security review), and the results go in the pull request. The UI check looks at the changed screens in a browser, at every screen width, in every state, and by keyboard.
   Markdown files are notes and are never verified or reviewed.
 - **Code graph (optional).** Graphify in code-only mode for architecture and change-impact questions.
 

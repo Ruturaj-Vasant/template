@@ -18,6 +18,7 @@
 |---|---|---|---|---|
 | Simplify | | | | |
 | Performance | | | | |
+| UI check | | | | |
 | Code review | | | | |
 | Security review | | | | |
 

@@ -19,6 +19,7 @@ How it is meant to be built, and why each part was chosen, is in `docs/ARCHITECT
 | `docs/ARCHITECTURE.md` | Architecture plan and choices: the parts, where each runs, vendors, languages, frameworks, with the reasons and what was rejected | Edited freely |
 | `docs/SYSTEMS.md` | What exists right now | Edited as things are built |
 | `docs/decisions/` | Feature decisions: why a feature was built the way it was | Never edited once accepted |
+| `docs/design/` | The chosen design direction and the mockups it came from | Edited when the design changes |
 | `AGENTS.md`, `docs/agents/` | How we work: rules for agents, and the reasons behind them | Edited with the user's permission |
 
 ### What belongs in a decision
@@ -39,6 +40,8 @@ The file format and searches are in `docs/decisions/README.md`.
 - Find the decisions that apply to the files you will change, and read `docs/SYSTEMS.md` and `docs/ARCHITECTURE.md` before significant work.
 - Read every task guide below that matches the work, before editing.
 - For a feature, do the risk check below before writing code.
+- Before the first screen of a user interface is built, the user chooses a design direction, recorded in `docs/design/README.md`. Plan it with the `ux-design` skill, and never choose it for the user.
+- For a feature with new screens or a change to navigation, plan its screens with the `ux-design` skill and get the user's approval before building them.
 
 ## Risk check
 
@@ -72,6 +75,7 @@ A decision named in another decision's `supersedes:` is no longer current.
 | When you are... | Read |
 |---|---|
 | TODO(template): The work a path-scoped guide covers, e.g. "Editing pages, styles, or UI" | TODO(template): The guide path, e.g. `docs/agents/frontend.md` (Claude Code loads it automatically; do not read it twice) |
+| Choosing a design direction, planning a feature's screens, or auditing the UI | `.agents/skills/ux-design/SKILL.md` (`/ux-design` in Claude Code, `$ux-design` in Codex) |
 | Changing anything a browser, a device, or an operating system decides | `docs/agents/end-to-end.md` |
 | Finishing a feature, before merging into `main`, or asked to review code | `docs/agents/review.md` |
 | Building or querying the code graph | `docs/agents/graphify.md` |
@@ -137,5 +141,5 @@ For every non-trivial change:
 **Markdown files are notes.**
 Files ending in `.md` (including `AGENTS.md`, guides, decisions, and skills) are never verified or reviewed, even on a branch that also changes code: verification and every review step cover only the other files.
 
-**Before merging into `main`:** run the review steps that `docs/agents/review.md` chooses for the branch's risk, in its order (simplify, performance, code review, security review), and put the review record in the pull request description.
+**Before merging into `main`:** run the review steps that `docs/agents/review.md` chooses for the branch's risk, in its order (simplify, performance, UI check, code review, security review), and put the review record in the pull request description.
 A branch that changes only Markdown files records "Skipped: Markdown only" instead.
