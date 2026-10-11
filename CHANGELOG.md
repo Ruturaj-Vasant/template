@@ -4,6 +4,12 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## The UX audit looks for screens that ask too much
+
+- `project/.agents/skills/ux-design/SKILL.md` gains an audit step for too much at once: more choices than a screen's main task needs, rows of tabs or buttons, icons that do not help, rarely used options shown to everyone, and steps a person could skip. Planning a feature's screens now says to show each role only what its main tasks need.
+
+**Adopted projects must:** make the same two changes in their copy of the skill.
+
 ## Plan screens before building them, and check them before merging
 
 - New skill `project/.agents/skills/ux-design/`: choosing a design direction from two or three mockups, planning a feature's screens with every state they can be in, and auditing existing screens. It writes plans and mockups for the user to approve and never changes application code.

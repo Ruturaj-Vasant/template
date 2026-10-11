@@ -44,7 +44,7 @@ If a fact is missing, say so and list it under "Needs decision". Ask only when t
 ## Planning a feature's screens
 
 1. **The problem.** Who uses it, what starts it, what they are trying to get done, and what a mistake costs.
-2. **Where it lives.** Where it sits in the navigation, how people reach it, and how they get back.
+2. **Where it lives.** Where it sits in the navigation, how people reach it, and how they get back. Show each role only what its main tasks need, and keep rarely used options one step away rather than on every screen.
 3. **The steps.** For each main task: where it starts, each action or choice, the result, and who may do each step.
 4. **Every state.** For each screen, fill this table:
 
@@ -73,10 +73,11 @@ How and why the feature was finally built goes in its decision when it is built,
 1. List the screens and group them: main tasks, supporting tasks, and settings or administration.
 2. Walk through at least one frequent task, one task with several steps, one empty or failure path, and one role with limited access.
 3. Look for: labels people would not understand, actions hard to find, unclear current location, missing states, missing feedback after an action, errors without a way to recover, colour as the only signal, keyboard traps, and layouts that break on a phone.
-4. Tell a design problem apart from a bug, a missing feature, a product decision, and a permission problem on the server. Report the last kind to the user as a security concern, never as design.
-5. Report each finding as `screen | role and task | what you observed | impact | severity | proposed fix | confidence`, most severe first.
+4. Look for too much at once: more choices on a screen than its main task needs, rows of tabs or buttons a person must read through, icons that do not help someone understand faster, options most people rarely use shown to everyone all the time, and steps a person could skip. Count the tabs, buttons, and steps on each screen, and say which ones its main task uses.
+5. Tell a design problem apart from a bug, a missing feature, a product decision, and a permission problem on the server. Report the last kind to the user as a security concern, never as design.
+6. Report each finding as `screen | role and task | what you observed | impact | severity | proposed fix | confidence`, most severe first.
    Severity: **critical** blocks an important task or causes a serious data or security mistake; **high** makes a frequent task fail or an essential flow unusable without a mouse or a screen; **medium** is real friction or an error-prone step; **low** is polish.
-6. End with the five most important findings and a small first set of fixes to approve.
+7. End with the five most important findings and a small first set of fixes to approve.
 
 ## Finish
 
