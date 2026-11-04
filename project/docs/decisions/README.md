@@ -120,7 +120,7 @@ Each prints nothing when everything is fine.
 Other files in `docs/` missing `summary:` or `touches:` ("The header rule" in `AGENTS.md`):
 
 ```bash
-rg --files -g '*.md' -g '!README.md' -g '!agents/**' -g '!decisions/**' docs/ | while read -r f; do for k in summary touches; do rg -q "^$k:" "$f" || echo "$f: no $k"; done; done
+rg --files -g '*.md' -g '!README.md' -g '!docs/agents/**' -g '!docs/decisions/**' docs/ | while read -r f; do for k in summary touches; do rg -q "^$k:" "$f" || echo "$f: no $k"; done; done
 ```
 
 Files missing a header key:
