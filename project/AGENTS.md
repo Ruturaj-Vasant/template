@@ -16,11 +16,14 @@ How it is meant to be built, and why each part was chosen, is in `docs/ARCHITECT
 | File | Holds | Changes |
 |---|---|---|
 | `docs/PRODUCT.md` | Product strategy: what we build, for whom, in what order, compliance status, with the reasons | Edited freely |
+| `docs/product/` | Product areas: what each part does, who can use it, and the rules it keeps, one file per area | Edited freely |
 | `docs/ARCHITECTURE.md` | Architecture plan and choices: the parts, where each runs, vendors, languages, frameworks, with the reasons and what was rejected | Edited freely |
 | `docs/SYSTEMS.md` | What exists right now | Edited as things are built |
 | `docs/decisions/` | Feature decisions: why a feature was built the way it was | Never edited once accepted |
 | `docs/design/` | The chosen design direction and the mockups it came from | Edited when the design changes |
 | `AGENTS.md`, `docs/agents/` | How we work: rules for agents, and the reasons behind them | Edited with the user's permission |
+
+TODO(template): Files in `docs/` written only for people, such as research or a brief for a customer, which agents do not read unless the user asks, as one line ("`docs/<file>.md` is written for people, not agents. Do not read it unless the user asks."), or delete this line.
 
 ### What belongs in a decision
 
@@ -34,11 +37,55 @@ A decision records how and why a feature was built, so that anyone changing it l
 
 The file format and searches are in `docs/decisions/README.md`.
 
+## Finding context
+
+Read the smallest piece that answers the question, and find it through an index before opening anything.
+
+1. **Which file.** The table in "Where things are written" says what each file holds.
+2. **Which file among many.** Every file in `docs/` that agents read starts with a header (the rule is below), except folder READMEs, which index their folder, and the task guides, which the "Task guides" table indexes. One search lists them all, one line each:
+
+   ```bash
+   rg --sort path -g "!README.md" "^(summary|decision):" docs/
+   ```
+
+   To find everything about the code you are changing, search `touches:` for its path and its parent folders:
+
+   ```bash
+   rg -l -g "!README.md" -e "^touches:.*src/billing/" -e "^touches:.*src/" docs/
+   ```
+
+   More searches are in `docs/product/README.md` and in "Finding decisions" below.
+3. **Which section.** In a file longer than about 100 lines, list its headings with their line numbers, then read only the section you need:
+
+   ```bash
+   rg -n "^#{1,3} " docs/ARCHITECTURE.md
+   ```
+
+### The header rule
+
+- A header is a block at the very top of a file, between two `---` lines.
+- Every header has `summary:` and `touches:`. Decisions use `decision:` in place of `summary:`. A folder's README may add keys of its own.
+- `summary:` says what the file holds, in one sentence wrapped in double quotes, with no double quotes inside.
+- `touches:` lists the repository paths the file is about, comma separated, with folders ending in `/`, or `none`.
+- Every value stays on one line, so a search match returns the whole value.
+- A header describes the file as it is now. Change it in the same commit as the content it describes.
+
+The header checks are in `docs/decisions/README.md`, "Checking the headers".
+
+### When a file becomes a folder
+
+- A file in `docs/` that passes about 300 lines, or whose sections are usually read one at a time, becomes a folder with one file per topic, each with a header, as `docs/product/` is.
+- `docs/SYSTEMS.md` splits sooner, at about 150 lines per section (its opening says how).
+
+Keep the indexes true.
+A new file gets a row in the table and a header, and every heading names what its section holds, so the list of headings works as a table of contents.
+
 ## Before you start
 
 - Run `git status`. Identify and preserve unrelated or uncommitted changes.
 - Find the decisions that apply to the files you will change, and read `docs/SYSTEMS.md` and `docs/ARCHITECTURE.md` before significant work.
 - Read every task guide below that matches the work, before editing.
+- For a feature, open its product area in `docs/product/` (see "Finding context"), and keep the rules it lists.
 - For a feature, do the risk check below before writing code.
 - Before the first screen of a user interface is built, the user chooses a design direction, recorded in `docs/design/README.md`. Plan it with the `ux-design` skill, and never choose it for the user.
 - For a feature with new screens or a change to navigation, plan its screens with the `ux-design` skill and get the user's approval before building them.
@@ -78,13 +125,14 @@ A decision named in another decision's `supersedes:` is no longer current.
 | Choosing a design direction, planning a feature's screens, or auditing the UI | `.agents/skills/ux-design/SKILL.md` (`/ux-design` in Claude Code, `$ux-design` in Codex) |
 | Changing anything a browser, a device, or an operating system decides | `docs/agents/end-to-end.md` |
 | Finishing a feature, before merging into `main`, or asked to review code | `docs/agents/review.md` |
+| Testing a feature's journeys as each kind of user, or adding flow tests | `.agents/skills/flowcheck/SKILL.md` (`/flowcheck` in Claude Code, `$flowcheck` in Codex) |
 | Building or querying the code graph | `docs/agents/graphify.md` |
 | Writing a prompt for another agent session | `docs/agents/handoff.md` |
 | Starting to build, or choosing where new code goes | `docs/ARCHITECTURE.md` |
 | Recording a feature decision | `docs/decisions/README.md` |
 | Asking why a working rule in this file exists | `docs/agents/background.md` |
 
-Other guides are written only once the code they cover exists.
+Other guides are written only once the code they cover exists, starting from the outlines in `docs/agents/guide-outlines.md`.
 Until then, follow the project principles below and point out the missing guide in your report.
 
 ## Claude Code and Codex
@@ -92,12 +140,20 @@ Until then, follow the project principles below and point out the missing guide 
 Both tools read this file and the same guides in `docs/agents/`.
 A path-scoped guide lives in `docs/agents/` and needs a symlink in `.claude/rules/` (Claude Code) and a pointer skill in `.agents/skills/` (Codex). Edit only the guide.
 
+## Graphify
+
+- Graphify is code-only. Never run semantic (LLM-backed) extraction, community labeling, a full rebuild, or `graphify claude install` unless the user explicitly asks.
+- The graph is for navigation, not authority. Current source and passing tests win when it is stale or disagrees.
+- The graph lives in `graphify-out/` on each machine and is never committed; build it if it is missing. `docs/agents/graphify.md` has the build and query commands.
+
 ## While you work
 
 - Non-trivial changes go on a new branch, never directly on `main`. Changes reach `main` only through a pull request.
 - Commit every change as soon as it is made, and push the branch whenever the repository has a remote, even when the work is unfinished or may never be merged. A commit saves progress; merging is a separate choice. Never end a session with work only in the working tree.
+- Long work, such as several branches or full test runs, goes in its own git worktree (`git worktree add <folder> <branch>`), never in the main folder, which the user may switch to another branch mid-run. Before moving or resetting a branch, check with `git branch --contains` that no one else's commits would be lost.
 - Keep the change inside the requested scope. Do not redesign unrelated areas.
-- Deadlines never justify skipping tests, reviews, the risk check, or history. If the work does not fit the time, say so and let the user cut features instead. No date is recorded as a target anywhere in the repository.
+- When planning a feature with the user, say how it could connect to features that exist or are planned, and what each connection would gain for the people using it. A suggestion the user does not take is written under its area's "Later" as "suggested, not agreed". Build a connection between features only when the user has said yes to it, never on your own.
+- Deadlines never justify skipping tests, reviews, the risk check, history, or permission checks. If the work does not fit the time, say so and let the user cut features instead. No date is recorded as a target anywhere in the repository.
 - Never credit an AI tool as an author or contributor: no `Co-Authored-By` trailers, "Generated with" lines, or similar attribution for Claude, Codex, or any other agent in commits, pull requests, code, or documentation.
 - Never commit secrets, credentials, tokens, `.env` files, real user data, or other private data. Fixtures and examples use synthetic data only.
 - Prefer a visible `unknown`, `incomplete`, or `unavailable` over a guessed value. Never silently swallow a failure.
@@ -107,7 +163,6 @@ A path-scoped guide lives in `docs/agents/` and needs a symlink in `.claude/rule
 - Write for whoever reads the file. A document people read uses plain, direct English: short sentences, ordinary words, and any term explained the first time it appears. A file that mainly instructs an agent is terse and structured. A file both read is written plainly, because plain words cost a machine nothing and jargon costs a person a lot.
 - Speak to the user the same way: simple language, and explain a term rather than assuming it.
 - `docs/SYSTEMS.md` records what exists, `docs/PRODUCT.md` and `docs/ARCHITECTURE.md` record what is planned, and `docs/decisions/` records why a feature is the way it is; none repeats another (see "Where things are written").
-- Graphify is code-only and advisory: never run semantic (LLM-backed) extraction, community labeling, a full rebuild, or `graphify claude install` unless the user explicitly asks, and trust current source over a stale graph.
 
 ## Project principles
 
@@ -119,12 +174,14 @@ TODO(template): Three to six rules that come from the project's domain and must 
 
 TODO(template): The single command that must pass (build, lint, and tests), e.g. `npm run check`. If there is no toolchain yet, say so, and say to verify as the matching task guide describes and report exactly what was checked.
 
+Once the flow suite exists, it runs too, before every merge (`docs/agents/end-to-end.md`, "Flow tests").
+
 For every non-trivial change:
 
 1. When a file other than Markdown changed, verify and report the results, including anything you could not check.
    If the change touches a surface a browser or a device decides, `docs/agents/end-to-end.md` says what that means and what to run.
 2. Update `docs/SYSTEMS.md` when what exists changes, and `docs/PRODUCT.md` or `docs/ARCHITECTURE.md` when the plan changes.
-3. When a feature was built or changed, write its decision as described in "What belongs in a decision", and run the header checks in `docs/decisions/README.md` after changing `docs/decisions/` or moving or renaming files.
+3. When a feature was built or changed, write its decision as described in "What belongs in a decision", and run the header checks in `docs/decisions/README.md` after changing a header in `docs/`, or moving or renaming files.
 4. If `graphify-out/graph.json` exists and code changed, run `graphify update .`.
 5. Confirm `git status` shows only intended changes.
 6. Report anything uncertain, untested, or intentionally out of scope.
@@ -136,10 +193,12 @@ For every non-trivial change:
 - Tests use synthetic data only.
 - Never delete, skip, or weaken a test to make it pass. If a test itself is wrong, fix it and say why in the pull request.
 - Anything a browser or a device decides also gets an end-to-end check (`docs/agents/end-to-end.md`).
+- A feature a person uses also gets its journeys as flow tests, one for each kind of user it serves and each other person its data reaches (`.agents/skills/flowcheck/SKILL.md`). The suite only grows.
 - While no test tooling exists yet, list in the report the tests the change will need once it does.
 
 **Markdown files are notes.**
 Files ending in `.md` (including `AGENTS.md`, guides, decisions, and skills) are never verified or reviewed, even on a branch that also changes code: verification and every review step cover only the other files.
+The header checks still run.
 
-**Before merging into `main`:** run the review steps that `docs/agents/review.md` chooses for the branch's risk, in its order (simplify, performance, UI check, code review, security review), and put the review record in the pull request description.
+**Before merging into `main`:** run the review steps that `docs/agents/review.md` chooses for the branch's risk, in its order (simplify, performance, UI check, flow check, code review, security review), and put the review record in the pull request description.
 A branch that changes only Markdown files records "Skipped: Markdown only" instead.
