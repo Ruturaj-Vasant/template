@@ -7,13 +7,15 @@ It gives every session, local or remote, the same rules, the right context for t
 
 - **One instruction file.** `AGENTS.md` holds the standing rules; `CLAUDE.md` is a symlink to it, so Claude Code and Codex read the same thing.
 - **Task guides.** Detailed rules live in `docs/agents/` and are read only when the task needs them. Path-scoped guides load automatically: through `.claude/rules/` symlinks in Claude Code and pointer skills in `.agents/skills/` in Codex.
-- **Plans.** `docs/PRODUCT.md` says what the project is meant to become and for whom; `docs/ARCHITECTURE.md` says how it is meant to be built, and keeps the reasons and rejected options for each choice. Both are edited freely.
+- **Finding context.** Every file in `docs/` starts with a one-line `summary:` and a `touches:` list of the code it is about, so one search lists them all and another finds every document about the code being changed. Long files become folders, one topic per file.
+- **Plans.** `docs/PRODUCT.md` says what the project is meant to become and for whom, with one file per product area in `docs/product/`; `docs/ARCHITECTURE.md` says how it is meant to be built, and keeps the reasons and rejected options for each choice. Both are edited freely.
 - **Current state.** `docs/SYSTEMS.md` records what exists now.
 - **Feature decisions.** `docs/decisions/` holds one file per feature decision: why a feature was built the way it was, written when it is built, with a one-line header that agents search instead of reading every file.
 - **Reasons for the rules.** `docs/agents/background.md` explains why each working rule exists, and records which template commit the project follows.
 - **Risk check.** Before building a feature that touches data, the agent reports the data involved, the rules that may apply, the security risks, and the approvals needed, and stops only on a violation or a missing approval.
 - **User interface.** Before the first screen is built, the user picks a design direction from two or three mockups, and its rules are written into the frontend guide. A `ux-design` skill plans each feature's screens, with every state they can be in, for the user to approve before they are built.
-- **Pre-merge review.** Before a branch merges into `main`, it gets the review steps its risk calls for (simplify, performance, UI check, code review, security review), and the results go in the pull request. The UI check looks at the changed screens in a browser, at every screen width, in every state, and by keyboard.
+- **Pre-merge review.** Before a branch merges into `main`, it gets the review steps its risk calls for (simplify, performance, UI check, flow check, code review, security review), and the results go in the pull request. The UI check looks at the changed screens in a browser, at every screen width, in every state, and by keyboard.
+- **Flow tests.** The flow check walks each feature from start to end as each kind of user, against a real server and database, and checks that every page agrees. Every journey it walks is kept as an automated test, so the suite grows with each feature and runs in full before every merge.
   Markdown files are notes and are never verified or reviewed.
 - **Code graph (optional).** Graphify in code-only mode for architecture and change-impact questions.
 
