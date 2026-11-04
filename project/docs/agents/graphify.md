@@ -12,7 +12,10 @@ Documentation and decisions are never extracted into the graph; find them by hea
 ## Building and refreshing
 
 - A graph is worth building once the repository has enough application code that reading files to answer structural questions gets expensive.
-- Build it once with `graphify extract . --code-only`.
+- It lives in `graphify-out/`, which git ignores. Each machine builds its own.
+- Install Graphify (PyPI package `graphifyy`) in its own environment, outside the repository, pinned to an exact version at least two weeks old.
+- Build it with `graphify extract . --code-only`.
+- For the report (`GRAPH_REPORT.md`) and the interactive page (`graph.html`), run `graphify cluster-only . --no-label`. Without `--no-label`, it names groups of code with a language model, which the rules in `AGENTS.md` forbid.
 - After code changes, refresh it with `graphify update .`, which uses local AST extraction only.
 - Graphify flags change between versions. If a command fails, check `graphify --help` for the installed version rather than guessing.
 
@@ -30,3 +33,4 @@ When `graphify-out/graph.json` exists:
 - Semantic extraction of documents costs tokens on every refresh, produces inferred links that are guesses, goes stale with every change, and flattens the reasoning in plans and decisions.
 - Code and decisions are linked without the graph: code comments cite decision IDs, and decisions list the paths they affect in `touches:`.
 - `graphify claude install` is not used because it rewrites `CLAUDE.md`, and through the symlink `AGENTS.md`, and adds a hook.
+- `graphify-out/` is not committed, because it is generated from the code, can grow to tens of megabytes, and changes with every refresh; committing it would bloat every pull request and go stale between them.

@@ -57,6 +57,25 @@ TODO(template): Whether the project uses XCTest, Swift Testing, or both.
 - **Sandbox and entitlements are part of the behaviour.** A file read that works in a test target and fails in the shipped app is this same class of bug: the code is right and the environment decides otherwise.
 - **Keep the slow ones separate.** UI tests are minutes, not seconds. Give them their own command so the fast loop stays fast, and say in the review guide when they are expected.
 
+## Flow tests
+
+Whole journeys, as people use the product, against the real server and a database of your own, as each kind of user.
+Browser checks test one screen at a time and may answer the app with made-up responses; flow tests do not.
+The `flowcheck` skill says what to check, and which journeys a feature adds.
+
+TODO(template): The suite's folder and the command that runs all of it, e.g. `web/flow/` and `web/flow/run.sh`.
+TODO(template): How to start a server and an app of your own, on your own ports, against your own database copy, and where the made-up test people's logins are kept, outside the repository.
+
+A layout that has worked:
+
+- **A README** that says how to start the server and the app, and how to run the suite.
+- **A run script** that checks the server and the app answer, resets the database, then runs every test, passing extra arguments to the test runner.
+- **A reset script** that drops your database and copies it again from your clean copy, touching no other database.
+- **A config** that runs one test at a time, because journeys share one database; runs tests that only call the server once and screen tests at a laptop's and a phone's width; fixes the browser's time zone; and keeps a trace of every failure.
+- **A helper for the test people** that signs in through the app's own sign-in page, calls the server as a given person, and reads logins at run time, skipping with a clear message when they are missing.
+
+The suite needs a database and test logins, so it is not part of the ordinary check command; it runs on the developer's machine before every merge.
+
 ## Reporting
 
 Say which checks ran, on what, and what could not be checked.

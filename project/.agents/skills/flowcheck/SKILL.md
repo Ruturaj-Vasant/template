@@ -12,7 +12,7 @@ You fix clear problems, propose larger ones, and leave every journey behind as a
 ## Scope
 
 1. Run the setup command from "Getting the scope right" in `docs/agents/review.md`, so `main` exists and is current.
-2. List the changed files without Markdown (`git diff --name-only main...HEAD -- . ':(exclude)*.md'`, with `origin/main` if you used the worktree fallback there) and name the features they touch. If a git command fails, stop and report it. If no person can notice the changes, stop and say so.
+2. List the changed files without Markdown, committed (`git diff --name-only main...HEAD -- . ':(exclude)*.md'`) and uncommitted (`git diff --name-only HEAD -- . ':(exclude)*.md'`), using `origin/main` if you used the worktree fallback there, and name the features they touch. If a git command fails, stop and report it. If no person can notice the changes, stop and say so.
 3. Read the product area files in `docs/product/` for those features and for every feature that shares their data (find them with the searches in `docs/product/README.md`), the roles in `docs/PRODUCT.md`, and the decisions that touch the changed files.
 4. From those, list the journeys: who (each role, someone given or refused the permission the feature needs, someone new, someone who left), what they want, each step, and every page where the result must then show.
 

@@ -11,10 +11,13 @@ It cannot see this conversation.
 - The files, decisions (by `D-NNN` ID), and guides that matter, by path.
 - Facts derived in this session that the repository does not record: measurements, constraints the user stated, and approaches already tried with the reason they failed.
 - What is out of scope.
+- A first step that sets the commit author to the user, with `git config user.name` and `git config user.email` and the user's own values, because a cloud session's default author is the agent, which `AGENTS.md` forbids.
 
 ## How to run this
 
-End every handoff prompt with a short **How to run this** block.
+Give every handoff prompt a short **How to run this** section, placed above the prompt and outside it.
+The user reads it first, to choose the model and settings before starting the session.
+Then give the prompt on its own, clearly marked (for example in one code block), so it can be copied whole without the run notes.
 The same prompt produces very different work depending on where it runs.
 Give each item a one-line reason, not a bare label.
 
