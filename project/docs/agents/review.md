@@ -14,6 +14,7 @@ git diff --name-only main...HEAD -- . ':(exclude)*.md'
 
 If it prints nothing, the branch skips verification and every review, and its review record says "Skipped: Markdown only".
 Otherwise, discard any review finding about a Markdown file.
+If the application ever serves or renders Markdown files as content, those files count as code: add their paths here as an exception, and remove them from the exclusion above.
 
 ## Choosing the review steps
 
@@ -33,9 +34,11 @@ Also run, whichever row applies:
 - **Security review** whenever the change needed a risk check under `AGENTS.md`, however small it looks, because it changes how data is stored, shared, or sent.
 - **Performance** when the changes touch database queries, network calls, work that grows with the amount of data (loops, lists, rendering many items), startup, or an area listed under "Project performance checks".
 - **UI check** when the changes touch a screen: its markup, styles, layout, components, or wording. It looks at the screens in a browser at every width, in every state, and by keyboard. End-to-end asks whether the browser did the right thing; the UI check asks whether the screen is complete and usable.
+- **Flow check** when the changes add or change a feature a person uses: a new screen or step, a change to what someone may do, or data that another area or another person sees. It walks whole journeys as each kind of user against a real server and database, checks that every page agrees, and adds each journey to the flow tests (`.agents/skills/flowcheck/SKILL.md`). Skip it only for a branch whose changes no person can notice, such as a refactor with no change in behaviour, and say so in the review record.
 - **End-to-end** when the changes touch something a browser, a device, or an operating system decides rather than something the code decides: markup, response headers, a content security policy, a redirect, a form, a screen, a control, or a permission prompt. `docs/agents/end-to-end.md` says what to run and why a response-level test cannot see this class of defect.
 
 Verification runs for every branch that changes a file other than Markdown.
+Once the flow suite exists, verification also runs all of it (`docs/agents/end-to-end.md`, "Flow tests"), whichever steps were chosen, so a change never breaks a journey that already worked.
 If a fix made during review moves the branch into another row or adds an area, run the steps that now apply.
 
 ## Pre-merge review
@@ -46,14 +49,16 @@ Run the chosen steps in this order, skipping the ones not chosen:
 1. **Simplify** first, because it edits code.
 2. **Performance** second, because it edits code too.
 3. **UI check** third, because it edits code too.
-4. **Code review** fourth, so bugs introduced by any of those edits are caught.
-5. **Security review** last, on the final code.
+4. **Flow check** fourth, because it edits code too, and a journey is easiest to judge once the screens are right.
+5. **Code review** fifth, so bugs introduced by any of those edits are caught.
+6. **Security review** last, on the final code.
 
 | Step | Claude Code | Codex |
 |---|---|---|
 | Simplify: applies cleanups | `/simplify` | `$simplify` |
 | Performance: applies safe speedups, proposes larger ones | `/performance` | `$performance` |
 | UI check: looks at the changed screens, applies small fixes, proposes larger ones | `/ui-check` | `$ui-check` |
+| Flow check: walks journeys as each kind of user, fixes clear problems, adds the journeys to the flow tests | `/flowcheck` | `$flowcheck` |
 | Code review: reports bugs | `/code-review main...HEAD` | `/review`, then choose the base branch `main` (terminal: `codex review --base main`) |
 | Security review: reports vulnerabilities | `/security-review`, then the project checks below | `$security-review` (includes the project checks) |
 
@@ -75,7 +80,8 @@ If `main` is checked out in another worktree, it fails for the same reason: run 
 
 - Always give Claude's `/code-review` a target such as `main...HEAD` or a PR number. Without one it only sees unpushed and uncommitted work, and finds nothing once a branch is pushed.
 - Claude's `/security-review` compares the branch with `origin/HEAD`, which the command above sets.
-- Codex's `$simplify`, `$performance`, `$ui-check`, and `$security-review` review `main...HEAD` plus uncommitted changes, without Markdown files.
+- Codex's `$simplify`, `$performance`, `$ui-check`, `$flowcheck`, and `$security-review` review `main...HEAD` plus uncommitted changes, without Markdown files.
+- When the branch lives in a worktree other than the session's folder, start the review session inside that worktree. Claude's `/code-review` and `/security-review` run their git commands in the session's folder, so from elsewhere they review the wrong branch or nothing. If that is not possible, give `/code-review` the range `main...<branch>` and say which folder to read files from.
 - If any review's git command fails, stop and fix the setup. A failed diff is never "nothing to review", and never goes into the review record as a clean result.
 
 ## Project security checks
@@ -107,6 +113,7 @@ For a branch that changes only Markdown files, one line saying "Skipped: Markdow
 - The change follows `docs/ARCHITECTURE.md`. If it departs from it, the plan is updated in the same branch with the reason.
 - A feature that was built or changed has its decision file.
 - Every feature and bug fix has the tests "Definition of done" in `AGENTS.md` asks for, and no test was deleted, skipped, or weakened to pass.
+- Every feature a person uses has its journeys in the flow suite, and the whole suite passes, apart from tests marked as expected failures.
 - The project principles in `AGENTS.md` still hold.
 - The risk check in the pull request still matches what was built, and each approval it names is obtained or listed as pending.
 
@@ -132,6 +139,7 @@ Do not report style preferences as defects.
 - Steps follow risk rather than running every time: a small bug fix does not need simplify, but any change to how data is stored, shared, or sent needs security review however small it looks.
 - Performance is its own step because it needs measurements and must propose, not apply, larger designs such as caches. Claude Code has no built-in performance skill, so the project skill in `.agents/skills/performance/` serves both tools.
 - The UI check is its own step because a screen can pass every test and still be unusable: a state nobody designed, a layout that breaks on a phone, or a control a keyboard cannot reach. Only looking at it finds these. Neither tool has a built-in skill for it, so `.agents/skills/ui-check/` serves both.
+- The flow check is its own step because the other reviews look at one piece at a time, and the bugs that hurt users sit between pieces. In the project it came from, its first run found three such bugs after every other review had passed: someone who left took their work out of every planning view, approved time off left the person still scheduled to present, and a record written in the evening was dated the next day, because the server's day differed from the person's. Keeping each journey as a flow test means the suite grows with every feature, and each later change is checked against all of them.
 - Codex ships only `/review`, so the project skills `simplify` and `security-review` give it the other steps, written in our own words with the project checks included.
 - Claude's `/code-review` without a target sees only unpushed work, and `/security-review` needs `origin/HEAD`, which a locally created or single-branch clone lacks. The setup command in "Getting the scope right" fixes both.
 - The review is an instruction, not an enforced gate, unless GitHub branch protection is configured.

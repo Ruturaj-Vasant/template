@@ -27,6 +27,7 @@ To find the next decision number, list the files (`ls docs/decisions/D-*`) and a
 `touches:` often names a folder rather than a file, so search a path together with its parent folders, as in the table.
 
 A decision named in another decision's `supersedes:` is no longer current, whatever its own `status:` says.
+Check the replaced list before relying on a decision.
 
 ## Writing a decision
 
@@ -113,8 +114,14 @@ To add a tag, add it here in the same change that first uses it.
 
 ## Checking the headers
 
-Run these from the repository root after adding a decision or moving files.
+Run these from the repository root after adding a decision, changing a header anywhere in `docs/`, or moving files.
 Each prints nothing when everything is fine.
+
+Other files in `docs/` missing `summary:` or `touches:` ("The header rule" in `AGENTS.md`):
+
+```bash
+rg --files -g '*.md' -g '!README.md' -g '!docs/agents/**' -g '!docs/decisions/**' docs/ | while read -r f; do for k in summary touches; do rg -q "^$k:" "$f" || echo "$f: no $k"; done; done
+```
 
 Files missing a header key:
 

@@ -1,3 +1,8 @@
+---
+summary: "How the project is meant to be built: the parts and where each runs, the rules between them, and the reasons for each choice."
+touches: TODO(template): the main code folders, comma separated, or none
+---
+
 # Architecture
 
 How this project is meant to be built, and why each part was chosen.

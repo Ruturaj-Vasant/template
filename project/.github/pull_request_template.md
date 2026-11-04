@@ -19,6 +19,7 @@
 | Simplify | | | | |
 | Performance | | | | |
 | UI check | | | | |
+| Flow check | | | | |
 | Code review | | | | |
 | Security review | | | | |
 

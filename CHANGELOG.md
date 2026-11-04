@@ -4,6 +4,61 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Flow check and flow tests
+
+- New skill `project/.agents/skills/flowcheck/`: a review step that walks each changed feature from start to end as each kind of user, against a real server and a database copy of its own. It checks that every page agrees, that the server refuses what the screen hides, several people acting on the same data, real-world data, and time zones. It fixes clear problems, proposes larger ones, and keeps every journey as an automated flow test. A problem not fixed yet stays as a test marked as an expected failure.
+- `project/AGENTS.md`: the testing rule adds flow tests for every feature a person uses ("the suite only grows"), the definition of done runs the whole flow suite before every merge, the task guides table gains a `flowcheck` row, and the review order becomes simplify, performance, UI check, flow check, code review, security review.
+- `project/docs/agents/review.md`: when the flow check runs, its place fourth in the order, its commands, a scope check line, verification running the whole suite, and the reason, with the three bugs its first run found in the project it came from.
+- `project/docs/agents/end-to-end.md` gains "Flow tests": where the suite lives, how to run it, and a layout that has worked. The pull request template gains a Flow check row. `project/docs/agents/background.md` gains the reason under "Tests". `ADOPT.md` links the skill for Claude Code and says what to do with "Flow tests".
+
+**Adopted projects must:**
+
+1. Copy `.agents/skills/flowcheck/`, and link it as `.claude/skills/flowcheck/SKILL.md` (`ADOPT.md`, "Setting up the copied files", step 1).
+2. Make the `AGENTS.md`, `docs/agents/review.md`, pull request template, and `docs/agents/background.md` changes above, and add "Flow tests" to `docs/agents/end-to-end.md`, writing "Not set up yet" until the first flow check sets the suite up.
+3. If the project logs review steps anywhere else, add the flow check there too.
+
+A project with no user-facing surface skips this entry, apart from recording the template commit.
+
+## Finding context through headers, and product areas
+
+- `project/AGENTS.md` gains "Finding context": find a file through the table and the headers before opening anything, and in a long file read only the section needed. "The header rule": every file in `docs/` that agents read, apart from folder READMEs and the task guides, starts with a one-line `summary:` and a `touches:` list. "When a file becomes a folder": past about 300 lines.
+- `project/docs/PRODUCT.md`, `project/docs/ARCHITECTURE.md`, and `project/docs/SYSTEMS.md` gain headers. `project/docs/decisions/README.md` gains a header check for them.
+- New `project/docs/product/README.md`: one file per product area, with a searchable header. "Before you start" asks for a feature's area to be read, and the `ux-design` skill writes approved plans there.
+- `project/docs/agents/background.md` gains "Finding context" with the reasons. `ADOPT.md` gains a "Headers" setup step.
+
+**Adopted projects must:** add the three sections and the "Before you start" line to `AGENTS.md`, the `docs/product/` row to "Where things are written", headers to their files in `docs/`, and the header check to `docs/decisions/README.md`. Copy `docs/product/README.md`. Move existing per-area detail into it only when the plan file passes about 300 lines.
+
+## Outlines for the testing, security, and data guides
+
+- New `project/docs/agents/guide-outlines.md`: the sections every guide needs, and outlines for a frontend, testing, security, and data guide, with rules that held in a real project. Examples: show a protection works by making its test fail without it; test every role; take test dates from one clock and run the suite as on another day; give every new endpoint tests for no sign-in, another account, and a role without permission; merge a migration before the code that uses it.
+- The frontend outline moves there from `project/docs/agents/example-guide.md`, which now points to it, so the outlines survive when the example guide is renamed. `project/AGENTS.md` points to the file from the task guides table.
+
+**Adopted projects must:** copy `docs/agents/guide-outlines.md` and the pointer line in `AGENTS.md`. For each guide the project already has, compare it with its outline and list for the user any rule that is missing, rather than adding one that does not fit.
+
+## Connections between features
+
+- `project/AGENTS.md` "While you work": when planning a feature, say how it could connect to other features and what each connection would gain. Build a connection only when the user agrees. A suggestion not taken goes under the area's "Later" as "suggested, not agreed".
+- The `ux-design` skill gains a "Connections" planning step, and `project/docs/agents/background.md` gains the reason.
+
+**Adopted projects must:** add the rule, the skill step, and the reason.
+
+## Screens: each fact once, and no notes about the product's rules
+
+- The `ui-check` skill gains a "Reading" check: the same fact never shows twice in one window, panel, or card, there is no filler, and there are no sentences explaining the product's own rules, such as "no one is ranked". The `ux-design` skill applies the same rules to mockups and audits. `project/docs/agents/background.md` gains the reasons.
+
+**Adopted projects must:** make the same changes to their copies of the two skills, and add the reasons.
+
+## Smaller changes
+
+- `project/AGENTS.md`: long work goes in its own git worktree; deadlines never justify skipping permission checks either; Graphify becomes its own section, adding that `graphify-out/` is never committed; a placeholder lists files written only for people, which agents skip unless asked; "Markdown files are notes" adds that the header checks still run.
+- `project/docs/agents/review.md`: Markdown files that the app serves as content count as code; reviews of a branch in another worktree run from inside that worktree.
+- `project/docs/agents/handoff.md`: the run notes go above the prompt, and the prompt sits in one block that can be copied whole. A cloud session first sets the commit author to the user.
+- `project/docs/agents/graphify.md`: install pinned in its own environment, `cluster-only --no-label` for the report, and why `graphify-out/` is not committed.
+- `project/docs/decisions/README.md`: check the replaced list before relying on a decision.
+- `ADOPT.md` "Graphify" step deletes the Graphify section rather than a bullet.
+
+**Adopted projects must:** make the same changes, and add the worktree reason to `docs/agents/background.md`. Fill or delete the people-only files line.
+
 ## The UX audit looks for screens that ask too much
 
 - `project/.agents/skills/ux-design/SKILL.md` gains an audit step for too much at once: more choices than a screen's main task needs, rows of tabs or buttons, icons that do not help, rarely used options shown to everyone, and steps a person could skip. Planning a feature's screens now says to show each role only what its main tasks need.

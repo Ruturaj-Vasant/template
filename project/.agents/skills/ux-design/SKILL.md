@@ -15,7 +15,7 @@ Building the approved plan follows `AGENTS.md` and the project's frontend guide.
 - Get the user's approval before anything is built from a plan, and before any change to navigation or to how an existing screen works.
 - Keep three things apart in everything you report: **Observed** (seen in the code or the running app, with the file or screen), **Proposed** (a recommendation, with the reason and who it affects), and **Needs decision** (a choice, a trade-off, or an assumption only the user can settle).
 - Never claim a test with real users, a design file, or a prototype exists unless you made it or saw it.
-- Never invent features, figures, or content. Mockups use clearly made-up data, and show only what exists or is planned in `docs/PRODUCT.md`.
+- Never invent features, figures, or content. Mockups use clearly made-up data, show only what exists or is planned in `docs/PRODUCT.md`, and follow the "Reading" check in the `ui-check` skill.
 - Reuse the project's existing screens, components, and design tokens (the shared colours, sizes, and spacing in the frontend guide) before proposing new ones.
 - Follow `AGENTS.md`, including the project principles and the risk check.
 
@@ -63,8 +63,9 @@ If a fact is missing, say so and list it under "Needs decision". Ask only when t
 6. **Components.** Which existing components and tokens it reuses, and anything new it needs, with the reason.
 7. **Acceptance criteria.** For the top tasks, "Given, When, Then" statements that a test or a person can check.
 8. **Alternatives.** For a change to navigation or to how an existing screen works, at least one alternative, with its trade-off and your recommendation.
+9. **Connections.** How the feature could connect to features that exist or are planned, and what each would gain for the people using it, as `AGENTS.md` asks ("While you work"). Plan none the user has not agreed to.
 
-Write the approved plan into `docs/PRODUCT.md`, under the feature it belongs to, or into the project's product area file if the project splits them.
+Write the approved plan into the feature's product area file in `docs/product/`.
 Mockups go in `docs/design/`.
 How and why the feature was finally built goes in its decision when it is built, as `AGENTS.md` says.
 
@@ -73,7 +74,7 @@ How and why the feature was finally built goes in its decision when it is built,
 1. List the screens and group them: main tasks, supporting tasks, and settings or administration.
 2. Walk through at least one frequent task, one task with several steps, one empty or failure path, and one role with limited access.
 3. Look for: labels people would not understand, actions hard to find, unclear current location, missing states, missing feedback after an action, errors without a way to recover, colour as the only signal, keyboard traps, and layouts that break on a phone.
-4. Look for too much at once: more choices on a screen than its main task needs, rows of tabs or buttons a person must read through, icons that do not help someone understand faster, options most people rarely use shown to everyone all the time, and steps a person could skip. Count the tabs, buttons, and steps on each screen, and say which ones its main task uses.
+4. Look for too much at once: more choices on a screen than its main task needs, rows of tabs or buttons a person must read through, icons that do not help someone understand faster, options most people rarely use shown to everyone all the time, steps a person could skip, the same fact shown twice in one window or card, and sentences that explain the product's own rules rather than letting the screen show them (the "Reading" check in the `ui-check` skill). Count the tabs, buttons, and steps on each screen, and say which ones its main task uses.
 5. Tell a design problem apart from a bug, a missing feature, a product decision, and a permission problem on the server. Report the last kind to the user as a security concern, never as design.
 6. Report each finding as `screen | role and task | what you observed | impact | severity | proposed fix | confidence`, most severe first.
    Severity: **critical** blocks an important task or causes a serious data or security mistake; **high** makes a frequent task fail or an essential flow unusable without a mouse or a screen; **medium** is real friction or an error-prone step; **low** is polish.
