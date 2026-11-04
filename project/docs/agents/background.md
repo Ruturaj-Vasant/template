@@ -12,6 +12,13 @@ Add the reason for any rule this project adds to `AGENTS.md`, in the matching se
 - It stays short and routes to guides in `docs/agents/`, because a long instruction file loses adherence as it grows.
 - Guides are written only once their code exists, because a guide for code that does not exist describes guesses and is wrong the moment the code arrives.
 
+## Finding context
+
+- Without an index, an agent reads whole files and folders to find one fact, which costs time and context on every run.
+- A one-sentence `summary:` in every header makes one search a table of contents for the whole of `docs/`, at a few dozen tokens per file.
+- `touches:` lets an agent find every document about the code it is changing, instead of guessing the right words.
+- Long files are split into folders because an agent that needs one section otherwise reads the whole file.
+
 ## Claude Code and Codex
 
 - Claude Code loads `.claude/rules/` files automatically when it reads matching paths.
@@ -37,11 +44,22 @@ Add the reason for any rule this project adds to `AGENTS.md`, in the matching se
 - Work that exists only in a working tree is lost when a laptop fails, a disk is wiped, or a remote session's container is reclaimed.
 - A commit on a pushed branch costs nothing and can be dropped later, so saving progress never waits for the work to be finished or for a decision to merge it.
 
+## Worktrees
+
+- A user who switches the main folder to another branch while an agent's test run is going changes the code under the run, and its results test a mix of two branches. A worktree of its own keeps an agent's long work apart.
+
+## Connections between features
+
+- An agent that links features on its own leaves surprises in the code: a change to one feature quietly changes another.
+- An agent that never mentions connections leaves a product of parts that do not work together.
+- Suggesting each connection, and building only those the user agrees to, keeps the parts working together without surprises. A suggestion not taken is written down, so it is not suggested again as new.
+
 ## Tests
 
 - Coding agents often write tests, but not reliably: they skip them on small changes, test only the case that works, and under pressure weaken a failing test instead of fixing the code. A written rule makes tests part of done rather than a habit.
 - A test written to fail before a bug fix proves the fix works, and keeps the bug from coming back unnoticed.
 - Permission tests matter most, because a missing check fails silently: nothing breaks, someone just sees data they should not.
+- Each journey the flow check tests is kept as a flow test, so the suite grows with every feature and each later change is checked against every earlier journey. A known problem stays as a test marked as an expected failure, so it is neither lost nor hidden. Why the flow check is its own review step is in `docs/agents/review.md`.
 
 ## User interface
 
@@ -49,10 +67,12 @@ Add the reason for any rule this project adds to `AGENTS.md`, in the matching se
 - Without a chosen look, each agent session invents its own, and a product drifts into a mix of styles. Choosing a design direction before the first screen, and writing its rules as tokens in the frontend guide, gives every session the same standard.
 - The user chooses the direction from two or three mockups, because taste is the user's call, and comparing options shows what they want faster than describing it.
 - Screens are planned before they are built, because changing a plan costs minutes and changing built screens costs a pull request.
+- Sentences that explain the product's own rules on screen, such as "no one is ranked", clutter the page and confuse the people using it; the rules belong in how the screen works and in the docs.
+- A fact shown twice in one window makes people read more to learn nothing new, so each fact shows once.
 
 ## Deadlines
 
-- A deadline is a reason to cut features, never a reason to skip tests, reviews, the risk check, or history, because those are the hardest things to add back later.
+- A deadline is a reason to cut features, never a reason to skip tests, reviews, the risk check, history, or permission checks, because those are the hardest things to add back later.
 - No target date is recorded, so that no document can be read as permission to rush.
 
 ## Writing for the reader

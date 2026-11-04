@@ -35,8 +35,9 @@ At each screen width the frontend guide names, or a phone (about 400px), a table
 4. **Names and signals.** Every field has a label, and its error is tied to it. Every icon-only button has a name. A status never relies on colour alone. Text passes contrast against its background.
 5. **Consistency.** Colours, sizes, and spacing come from the project's tokens, not new hardcoded values. Existing components are reused, not copied.
 6. **Honesty.** No made-up figures or filler panels. A success message appears only after the action succeeded. A value the app does not know shows as unknown, not as a guess. A control for something not built yet is disabled and says so.
-7. **Motion.** Animation respects the reduced-motion setting and never hides content.
-8. **Console.** No errors in the browser console or failed requests while using the screen.
+7. **Reading.** People should read as little as possible. The same fact never shows twice in one window, panel, or card: not a title, a name, a date, or a figure. No filler such as "No description." No sentences that explain the product's own rules, such as "no one is ranked": the rule shows in how the screen works, and its wording belongs in the docs.
+8. **Motion.** Animation respects the reduced-motion setting and never hides content.
+9. **Console.** No errors in the browser console or failed requests while using the screen.
 
 Take a screenshot of each changed screen at each width, and look at it.
 

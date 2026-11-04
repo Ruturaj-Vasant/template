@@ -1,7 +1,13 @@
+---
+summary: "Product strategy: what the project is for, for whom, in what order, and the compliance status, with the reasons."
+touches: none
+---
+
 # Product
 
 What this project is meant to become, for whom, and in what order.
 This is a living plan: edit it as the direction changes, and let git history record how it changed.
+Each product area's detail, who can use it, and the rules it keeps, is in its own file in `docs/product/`.
 How it is meant to be built is in `docs/ARCHITECTURE.md`, what exists today is in `docs/SYSTEMS.md`, and why each feature was built the way it was is in `docs/decisions/`.
 
 Status: TODO(template): "draft" or "reviewed", with the date of the last meaningful update.
