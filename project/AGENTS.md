@@ -201,4 +201,5 @@ Files ending in `.md` (including `AGENTS.md`, guides, decisions, and skills) are
 The header checks still run.
 
 **Before merging into `main`:** run the review steps that `docs/agents/review.md` chooses for the branch's risk, in its order (simplify, performance, UI check, flow check, code review, security review), and put the review record in the pull request description.
+Branches built at the same time are merged into one integration branch first, and reviewed and verified once as a batch (`docs/agents/review.md`, "Several branches built at the same time").
 A branch that changes only Markdown files records "Skipped: Markdown only" instead.

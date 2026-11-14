@@ -41,6 +41,19 @@ Verification runs for every branch that changes a file other than Markdown.
 Once the flow suite exists, verification also runs all of it (`docs/agents/end-to-end.md`, "Flow tests"), whichever steps were chosen, so a change never breaks a journey that already worked.
 If a fix made during review moves the branch into another row or adds an area, run the steps that now apply.
 
+## Several branches built at the same time
+
+When several branches are built at the same time for one piece of work (for example by parallel sessions), review and verify the batch once, not each branch:
+
+1. While a branch is built, it runs only its own fast checks: the tests for the code it changed, and any check its area always needs.
+2. When the branches are done, merge them into one integration branch off `main`, and resolve conflicts there; rebuild generated files instead of picking a side.
+3. Choose the review steps once, for the batch as a whole: the highest row any branch needs in the table above, plus every extra step any branch needs.
+4. Run those steps once, in the usual order, on the integration branch against `main`, then run the full verification once on the result.
+5. Merge the integration branch into `main` as one pull request, with one review record and the list of branches it contains; close the branch pull requests as included in it.
+6. A fix the review finds is made on the integration branch, and the checks it affects run again.
+
+A branch built alone, with nothing else in flight, keeps the per-branch review above.
+
 ## Pre-merge review
 
 Commit your work first, so every tool reviews the same changes.
@@ -133,7 +146,8 @@ Do not report style preferences as defects.
 
 ## Why the review works this way
 
-- Reviewing each branch before it reaches `main` is cheaper than one large review later.
+- Reviewing a branch before it reaches `main` is cheaper than one large review later, when it is the only branch in flight.
+- Branches built at the same time are reviewed and verified as one batch because reviews and full test runs cost the most time and tokens, and on parallel branches each would re-read the same code and re-run the same suites; the conflicts between the branches also show only once they are merged, so a review of each branch alone would miss them (the user's rule, after one night of parallel work reviewed branch by branch).
 - Simplify and performance run first because they edit code, so code review and security review see the final code.
 - Markdown files are skipped because they have nothing to build, run, or exploit; reviewing them could only suggest wording. The only protection for instruction files is the `AGENTS.md` rule against weakening them without the user's permission.
 - Steps follow risk rather than running every time: a small bug fix does not need simplify, but any change to how data is stored, shared, or sent needs security review however small it looks.

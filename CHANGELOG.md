@@ -4,6 +4,13 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## One review for branches built at the same time
+
+- `project/docs/agents/review.md` gains "Several branches built at the same time": while parallel branches are built, each runs only its own fast checks; then they are merged into one integration branch, which gets the review steps and the full verification once, and merges into `main` as one pull request with one review record. A branch built alone keeps the per-branch review. "Why the review works this way" gains the reason: reviews and full test runs cost the most, parallel branches would repeat them on the same code, and conflicts between branches only show once merged.
+- `project/AGENTS.md`: "Before merging into `main`" gains one sentence pointing to that section.
+
+**Adopted projects must:** add the section and the reason to `docs/agents/review.md`, and the sentence to `AGENTS.md`.
+
 ## Flow check and flow tests
 
 - New skill `project/.agents/skills/flowcheck/`: a review step that walks each changed feature from start to end as each kind of user, against a real server and a database copy of its own. It checks that every page agrees, that the server refuses what the screen hides, several people acting on the same data, real-world data, and time zones. It fixes clear problems, proposes larger ones, and keeps every journey as an automated flow test. A problem not fixed yet stays as a test marked as an expected failure.
