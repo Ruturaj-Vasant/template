@@ -17,6 +17,7 @@ It gives every session, local or remote, the same rules, the right context for t
 - **Pre-merge review.** Before a branch merges into `main`, it gets the review steps its risk calls for (simplify, performance, UI check, flow check, code review, security review), and the results go in the pull request; branches built at the same time are merged first and reviewed once, as a batch. The UI check looks at the changed screens in a browser, at every screen width, in every state, and by keyboard.
 - **Flow tests.** The flow check walks each feature from start to end as each kind of user, against a real server and database, and checks that every page agrees. Every journey it walks is kept as an automated test, so the suite grows with each feature and runs in full before every merge.
   Markdown files are notes and are never verified or reviewed.
+  Tests run on the developer's machine, never on GitHub.
 - **Code graph (optional).** Graphify in code-only mode for architecture and change-impact questions.
 
 ## What is in this repository
