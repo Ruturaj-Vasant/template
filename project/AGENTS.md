@@ -176,6 +176,11 @@ TODO(template): The single command that must pass (build, lint, and tests), e.g.
 
 Once the flow suite exists, it runs too, before every merge (`docs/agents/end-to-end.md`, "Flow tests").
 
+**Tests run on the developer's machine, never on GitHub.**
+Every check above runs locally before a pull request, and the pull request reports the local results.
+Do not add a workflow that runs tests on GitHub (GitHub Actions or any other hosted CI), and never start or re-run one.
+A test workflow the project already has stays disabled (`gh workflow disable <name>`) unless the owner turns it back on.
+
 For every non-trivial change:
 
 1. When a file other than Markdown changed, verify and report the results, including anything you could not check.

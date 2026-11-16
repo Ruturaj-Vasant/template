@@ -59,6 +59,7 @@ Add the reason for any rule this project adds to `AGENTS.md`, in the matching se
 - Coding agents often write tests, but not reliably: they skip them on small changes, test only the case that works, and under pressure weaken a failing test instead of fixing the code. A written rule makes tests part of done rather than a habit.
 - A test written to fail before a bug fix proves the fix works, and keeps the bug from coming back unnoticed.
 - Permission tests matter most, because a missing check fails silently: nothing breaks, someone just sees data they should not.
+- Tests run on the developer's machine, not on GitHub, by the owner's decision. The full suites (unit, browser, flow, end to end) already run locally before every merge, so a hosted run repeats the same work, spends hosted minutes, and cannot reach the local services and data the suites use; a hosted run that covers only part of the suites also gives false comfort.
 - Each journey the flow check tests is kept as a flow test, so the suite grows with every feature and each later change is checked against every earlier journey. A known problem stays as a test marked as an expected failure, so it is neither lost nor hidden. Why the flow check is its own review step is in `docs/agents/review.md`.
 
 ## User interface

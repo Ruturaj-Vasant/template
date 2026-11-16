@@ -4,6 +4,13 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Tests run on the developer's machine, never on GitHub
+
+- `project/AGENTS.md`, "Definition of done", gains "Tests run on the developer's machine, never on GitHub": every check runs locally before a pull request, which reports the local results; no workflow runs tests on GitHub, none is started or re-run, and an existing test workflow stays disabled unless the owner turns it back on.
+- `project/docs/agents/background.md`, "Tests", gains the reason. `README.md` mentions the rule.
+
+**Adopted projects must:** add the paragraph to `AGENTS.md` and the reason to `docs/agents/background.md`; remove or reword any line that says a hosted CI runs the tests; and disable any GitHub workflow that runs tests (`gh workflow list`, then `gh workflow disable <name>`), noting it in the pull request.
+
 ## One review for branches built at the same time
 
 - `project/docs/agents/review.md` gains "Several branches built at the same time": while parallel branches are built, each runs only its own fast checks; then they are merged into one integration branch, which gets the review steps and the full verification once, and merges into `main` as one pull request with one review record. A branch built alone keeps the per-branch review. "Why the review works this way" gains the reason: reviews and full test runs cost the most, parallel branches would repeat them on the same code, and conflicts between branches only show once merged.
