@@ -126,6 +126,7 @@ A decision named in another decision's `supersedes:` is no longer current.
 | Changing anything a browser, a device, or an operating system decides | `docs/agents/end-to-end.md` |
 | Finishing a feature, before merging into `main`, or asked to review code | `docs/agents/review.md` |
 | Testing a feature's journeys as each kind of user, or adding flow tests | `.agents/skills/flowcheck/SKILL.md` (`/flowcheck` in Claude Code, `$flowcheck` in Codex) |
+| Writing property tests, invariants, or arithmetic checks | `.agents/skills/math-check/SKILL.md` (`/math-check` in Claude Code, `$math-check` in Codex) |
 | Building or querying the code graph | `docs/agents/graphify.md` |
 | Writing a prompt for another agent session | `docs/agents/handoff.md` |
 | Starting to build, or choosing where new code goes | `docs/ARCHITECTURE.md` |
@@ -176,6 +177,13 @@ TODO(template): The single command that must pass (build, lint, and tests), e.g.
 
 Once the flow suite exists, it runs too, before every merge (`docs/agents/end-to-end.md`, "Flow tests").
 
+**Four kinds of checks** run on every change, and the commands above cover them all:
+
+- **Automated tests:** TODO(template): the test commands (unit, server, browser), e.g. `npm test`.
+- **Lint and static analysis:** TODO(template): the linter and type checker for each language, e.g. `ruff check` and `mypy`, or `eslint` and `tsc --noEmit`. They are set to catch bugs (unused and undefined names, unsafe types, likely mistakes), not to restyle the code; fix a real finding rather than silence it, and silence a wrong one only on its line, with the reason.
+- **Mathematical tests:** property tests, which state a rule for every input (a total is the sum of its parts, a round trip keeps every value, an empty value is never 0) and let a property-testing library look for a counterexample. They run inside the automated tests; the `math-check` skill says when and how to write one.
+- **CI:** every command above, run in full on the developer's machine before a pull request (below).
+
 **Tests run on the developer's machine, never on GitHub.**
 Every check above runs locally before a pull request, and the pull request reports the local results.
 Do not add a workflow that runs tests on GitHub (GitHub Actions or any other hosted CI), and never start or re-run one.
@@ -195,6 +203,7 @@ For every non-trivial change:
 
 - A feature ships with automated tests in the same pull request: unit tests for its logic, a test for each permission or account boundary the project has: another user's or tenant's data, and a role without access, and a test for each way it can fail (bad input, missing data, an outside service that is down).
 - A bug fix starts with a test that reproduces the bug and fails; the fix then makes it pass.
+- A change to how data is parsed, calculated, checked, or stored also gets property tests for the rules it must keep (`.agents/skills/math-check/SKILL.md`).
 - Tests use synthetic data only.
 - Never delete, skip, or weaken a test to make it pass. If a test itself is wrong, fix it and say why in the pull request.
 - Anything a browser or a device decides also gets an end-to-end check (`docs/agents/end-to-end.md`).

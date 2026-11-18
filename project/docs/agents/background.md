@@ -60,6 +60,7 @@ Add the reason for any rule this project adds to `AGENTS.md`, in the matching se
 - A test written to fail before a bug fix proves the fix works, and keeps the bug from coming back unnoticed.
 - Permission tests matter most, because a missing check fails silently: nothing breaks, someone just sees data they should not.
 - Tests run on the developer's machine, not on GitHub, by the owner's decision. The full suites (unit, browser, flow, end to end) already run locally before every merge, so a hosted run repeats the same work, spends hosted minutes, and cannot reach the local services and data the suites use; a hosted run that covers only part of the suites also gives false comfort.
+- Four kinds of checks, each with its own command, because each catches what the others miss: tests check the cases someone thought of; lint and type checks find unused and undefined names and unsafe types without running anything; property tests make up hundreds of inputs to break a rule stated for every input, and in the project this came from their first run found three gaps that every example test had missed; and the full local run before a pull request is the project's CI.
 - Each journey the flow check tests is kept as a flow test, so the suite grows with every feature and each later change is checked against every earlier journey. A known problem stays as a test marked as an expected failure, so it is neither lost nor hidden. Why the flow check is its own review step is in `docs/agents/review.md`.
 
 ## User interface

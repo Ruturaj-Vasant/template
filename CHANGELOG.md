@@ -4,6 +4,18 @@ What changed in the template, newest first.
 Each entry says what an adopted project must do to take the change.
 Projects apply the entries added after their recorded template commit (see `ADOPT.md`, Path 3).
 
+## Four kinds of checks, and mathematical tests
+
+- `project/AGENTS.md`, "Definition of done", gains "Four kinds of checks": automated tests, lint and static analysis, mathematical tests (property tests), and CI as the full local run, each with the command that covers it. Lint and type checks are set to catch bugs, not to restyle the code. "Every change to behavior ships with tests" gains a line: a change to how data is parsed, calculated, checked, or stored also gets property tests. The task guides table gains a `math-check` row.
+- New skill `project/.agents/skills/math-check/`: when and how to write property tests, invariants, round trips, arithmetic identities, sensitivity checks, and the bound behind a tolerance, and what to do when one fails (fix it, or keep the shrunk example as a strict expected failure and report it).
+- `project/docs/agents/background.md`, "Tests", gains the reason. `project/docs/agents/guide-outlines.md`, "Testing guide", gains "Lint and property tests". `ADOPT.md` links the new skill for Claude Code. `README.md` mentions the four kinds.
+
+**Adopted projects must:**
+
+1. Copy `.agents/skills/math-check/`, link it as `.claude/skills/math-check/SKILL.md`, and fill its two placeholders (the property-testing library, and where the tests live).
+2. Add "Four kinds of checks" and the property-test line to `AGENTS.md`, naming the project's own commands; add the task guides row, and the reason to `docs/agents/background.md`.
+3. If the project has no linter, type checker, or property-testing library yet, add them to its development dependencies, set to catch bugs only, and fix the real findings without reformatting the code base; where one does not fit yet, write "not set up yet" and say why.
+
 ## Tests run on the developer's machine, never on GitHub
 
 - `project/AGENTS.md`, "Definition of done", gains "Tests run on the developer's machine, never on GitHub": every check runs locally before a pull request, which reports the local results; no workflow runs tests on GitHub, none is started or re-run, and an existing test workflow stays disabled unless the owner turns it back on.

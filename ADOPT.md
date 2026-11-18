@@ -42,7 +42,7 @@ The goal is the template's structure with none of the project's existing rules l
 5. Sort old decision notes, and existing decision files, as in step 2. Only feature decisions stay as decision files, in the format in `docs/decisions/README.md`.
    Keep their original dates, and number them in date order. Keep an existing numbering scheme if its IDs are already cited in code, and never reuse a retired number.
    Say in `docs/decisions/README.md` which numbers were retired and where their content went.
-6. Copy the template files the project does not have yet, such as the review skills (including `performance`, `ui-check`, and `flowcheck`), the `ux-design` skill, `docs/design/`, `docs/product/`, the pull request template, and the guides, including `docs/agents/guide-outlines.md`.
+6. Copy the template files the project does not have yet, such as the review skills (including `performance`, `ui-check`, and `flowcheck`), the `ux-design` and `math-check` skills, `docs/design/`, `docs/product/`, the pull request template, and the guides, including `docs/agents/guide-outlines.md`.
 7. Do "Setting up the copied files".
 8. Do "Finishing every path". In the pull request, also list every existing rule and decision and where it went, and anything you were not sure where to put.
 
@@ -65,7 +65,7 @@ Use this when the project already adopted the template and the user asks to upda
 
 Do these in order, so no placeholder is filled in a file that is then deleted.
 
-1. **Links.** The template ships no symlinks, so create them: `ln -s AGENTS.md CLAUDE.md`; the skills Claude Code has no built-in version of: `for s in performance ui-check flowcheck ux-design; do mkdir -p .claude/skills/$s && ln -s ../../../.agents/skills/$s/SKILL.md .claude/skills/$s/SKILL.md; done`; and one link per path-scoped guide: `mkdir -p .claude/rules && ln -s ../../docs/agents/<guide>.md .claude/rules/<guide>.md`.
+1. **Links.** The template ships no symlinks, so create them: `ln -s AGENTS.md CLAUDE.md`; the skills Claude Code has no built-in version of: `for s in performance ui-check flowcheck ux-design math-check; do mkdir -p .claude/skills/$s && ln -s ../../../.agents/skills/$s/SKILL.md .claude/skills/$s/SKILL.md; done`; and one link per path-scoped guide: `mkdir -p .claude/rules && ln -s ../../docs/agents/<guide>.md .claude/rules/<guide>.md`.
 2. **Example guide.** Rename `docs/agents/example-guide.md` and `.agents/skills/example-guide/` to a real guide (for example `frontend`), including the `name:` in the skill, and link it as above. If the project has no path-scoped guide yet, delete both and the first row of the task guides table.
 3. **Graphify.** If the project does not use Graphify, delete `docs/agents/graphify.md`, its row in the task guides table, and the Graphify section in `AGENTS.md`.
 4. **End-to-end and flow checks.** Fill the placeholders in `docs/agents/end-to-end.md` with the project's own commands, and delete the section that does not apply (a project with no browser deletes "In a browser"; one that ships nothing for Apple platforms deletes "On Apple platforms"). If the project has no flow suite yet, write "Not set up yet" under "Flow tests" in place of its two placeholders; the first flow check sets it up. If the project has no user-facing surface at all, delete the guide, its row in the task guides table, `.agents/skills/flowcheck/` and its link in `.claude/skills/`, and every line that names them: `rg -n "flowcheck|[Ff]low check|[Ff]low tests|flow suite" AGENTS.md docs .agents .github`.

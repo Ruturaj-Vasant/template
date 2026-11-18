@@ -18,6 +18,7 @@ It gives every session, local or remote, the same rules, the right context for t
 - **Flow tests.** The flow check walks each feature from start to end as each kind of user, against a real server and database, and checks that every page agrees. Every journey it walks is kept as an automated test, so the suite grows with each feature and runs in full before every merge.
   Markdown files are notes and are never verified or reviewed.
   Tests run on the developer's machine, never on GitHub.
+- **Four kinds of checks.** Every change runs automated tests, lint and static analysis, mathematical tests, and CI as one full local run, each with a named command. The mathematical tests are property tests: a `math-check` skill says how to state a rule for every input (a total is the sum of its parts, a round trip keeps every value) and let a library look for an input that breaks it.
 - **Code graph (optional).** Graphify in code-only mode for architecture and change-impact questions.
 
 ## What is in this repository

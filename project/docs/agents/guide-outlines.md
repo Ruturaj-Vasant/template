@@ -34,6 +34,7 @@ The `ui-check` skill checks screens against it.
 - **Every role.** Test a feature as each role, with the permissions it starts with, and as someone given or refused the permission the feature needs. Loop over every role rather than letting one stand for the rest. What a role may not do or see is a test too. A change to a role's starting permissions needs these tests for every feature it moves.
 - **Dates and time.** Tests take their dates from one clock, never the machine's, and a date a view must show lies inside the period that view shows (a "tomorrow" is next week on a Sunday). Give the suite a setting that runs it as on another day, and use it for any change that handles dates.
 - **Flow tests.** Where they live and how to run them (`docs/agents/end-to-end.md`, "Flow tests").
+- **Lint and property tests.** The linter and type checker, which files they cover, and how a finding is silenced (on its line, with the reason). Where property tests live, their example count and time limit, and the rules they already state (the `math-check` skill).
 - **Synthetic data.** Invented names and reserved addresses such as `example.org`.
 
 ## Security guide
